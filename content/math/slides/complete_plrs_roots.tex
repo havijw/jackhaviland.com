@@ -1,0 +1,573 @@
+% based on a file Copyright 2007 by Till Tantau
+% This file may be distributed and/or modified
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+\documentclass{beamer}
+\setbeamertemplate{footline}[frame number]
+\usetheme[progressbar=frametitle]{metropolis}
+\makeatletter
+\setlength{\metropolis@titleseparator@linewidth}{2.5pt}
+\setlength{\metropolis@progressonsectionpage@linewidth}{2.5pt}
+\setlength{\metropolis@progressinheadfoot@linewidth}{2.5pt}
+\makeatother
+
+\usecolortheme{rose}
+\usepackage{amssymb,amsmath,amsthm}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{question}{Question}
+\newtheorem*{conjecture}{Conjecture}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{mathrsfs}
+
+% Standard packages
+
+\usepackage[english]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\newcommand{\burl}[1]{\textcolor{blue}{\url{#1}}}
+\newcommand{\emaillink}[1]{\textcolor{blue}{\href{mailto:#1}{#1}}}
+
+%%make section title slides show up (added by Roger)
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\renewcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\DeclareMathOperator{\nsmod}{mod}
+\newcommand{\nospacemod}[1]{\nsmod#1}
+
+\newenvironment{variableblock}[3]{%
+  \setbeamercolor{block body}{#2}
+  \setbeamercolor{block title}{#3}
+  \begin{block}{#1}}{\end{block}}
+
+% Author, Title, etc.
+
+\Large
+
+\title[PLRS]
+{
+  Analytic Approaches to Completeness of Generalized Fibonacci Sequences
+}
+
+\author[Steven J Miller] %%
+{\textcolor{black}{ Ph\'uc L\^am (plam6@u.rochester.edu) \\ John Haviland (havijw@umich.edu) \\Fernando\ Trejos\ Su\'arez (fernando.trejos@yale.edu) \\[0.1in] Joint work with John Lentfer, Steven J. Miller, and El\.zbieta Bo\l dyriew }}
+
+\date[2020]
+{\small{\textcolor{orange}{Young Mathematicians Conference\\
+Ohio State University\\
+08/14/20}}
+	%\alert{College Name, Date, Year}
+}
+
+
+% The main document
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\large
+
+%%%%%%%%%%%%%%%%%%%%%%% INTRO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+\begin{frame}{
+% \begin{tikzpicture}[scale=0.5]\tikzling[signpost=\scalebox{0.6}{1},\randomhead] \end{tikzpicture}
+Positive Linear Recurrence Sequences}
+    \begin{definition}
+        A sequence $\{H_i\}_{i \ge 1}$ of positive integers is a {\bf Positive Linear Recurrence Sequence (PLRS)} if the following properties hold: 
+        \begin{itemize}
+            \pause
+            \item (Recurrence relation) There are non-negative integers $L, c_1, \dots, c_L$ such that \vspace{-0.1in}
+                \[ 
+                    H_{n+1} = c_1H_n + \dots + c_LH_{n+1-L}
+                \]
+            with $L, c_1, c_L$ positive.
+            \pause
+            \item (Initial conditions) $H_1 = 1$, and for $1 \le n < L$, \vspace{-0.1in}
+                \[
+                    H_{n+1} = c_1H_n + \cdots + c_nH_1 + 1
+                \]
+        \end{itemize}
+    \end{definition}
+\end{frame}
+
+\begin{frame}{ 
+%\begin{tikzpicture}[scale=0.5]\tikzling[signpost=\scalebox{0.6}{1},\randomhead]\end{tikzpicture}
+    Positive Linear Recurrence Sequences}
+    \begin{itemize}
+        \item We write $[c_1, \ldots ,c_L]$ for $H_{n+1} = c_1 H_n + \cdots + c_L H_{n-L+1}$.\\ \
+        \pause
+        %\item The definition requires that $c_1, \ldots ,c_L$ must be all non-negative, with the first and last entries positive. 
+        %\item The initial conditions are specified to give unique decompositions (by a generalized Zeckendorf Theorem)
+        \item For example, for the Fibonacci numbers, we write $[1,1]$. This definition gives initial conditions $F_1=1,\; F_2=2$.\\ \
+        \pause
+        \item Despite satisfying positive linear recurrences, the Lucas and Pell numbers are not PLRS, since their initial conditions do not meet the definition.
+    \end{itemize}
+\end{frame}
+
+
+%\section{Completeness of PLRS}
+\begin{frame} {
+%\begin{tikzpicture}[scale=0.5]\tikzling[signpost=\scalebox{0.6}{2},\randomhead]\end{tikzpicture} 
+    Introduction to Completeness}
+    \begin{definition}
+        A sequence $\{H_i\}_{i \ge 1}$ is called \textbf{complete} if every positive integer is a sum of its terms, using each term at most once.
+    \end{definition}
+    \medskip
+    \begin{itemize}
+    \pause
+     \item The sequence with the recurrence $[1, 3]$ is \emph{not} complete. Its terms are $\{1,2,5,11,\dots\}$; you cannot get $4$ or $9$ as the sequence grows too quickly.\medskip
+    \pause
+    \item The Fibonacci sequence $[1,1]$, with initial conditions $F_1 = 1$, $F_2 = 2$, is complete (follows from Zeckendorf's Theorem).
+    \end{itemize}
+    
+    
+\end{frame}
+
+\begin{frame}{
+%\begin{tikzpicture}[scale=0.5]\tikzling[signpost=\scalebox{0.6}{2},\randomhead]\end{tikzpicture} 
+    The Doubling Sequence}
+    The PLRS $[2]$, which has the recurrence $H_{n+1} = 2H_n$, has terms $H_n = 2^{n - 1}$ and is complete because every integer has a binary representation.
+    \pause
+    \bigskip
+    \begin{theorem}[Brown]
+    The complete sequence with maximal terms is $H_n= 2^{n-1}$.
+    \end{theorem}
+    \pause
+    \begin{proof}
+	    Suppose $\{ G_{n} \}$ has $G_{k}>2^{k-1}$ for some $k$. As there are only $2^{k-1}-1$ different ways to sum the terms $G_1,\ldots , G_{k-1}$, some integer in the set $\{ 1,\ldots , G_{k}-1 \}$ cannot be written as a sum of terms of $\{G_n\}$.
+    \end{proof}
+   \end{frame}
+%\begin{frame}{Legal Decompositions vs. Completeness}
+%    \begin{itemize}
+        %\item By Zeckendorf's Theorem, any positive integer can be written uniquely as a sum of non-adjacent Fibonacci numbers. Thus, they are also complete.
+%        \item Previous work on PLRS relates to \emph{legal decompositions}, which are another way to write integers as sums of sequence terms.
+%        \item Given any PLRS, there is a legal decomposition of every positive integer. Does this mean that all PLRS are complete?
+        %All PLRS have a type of unique decomposition for all positive integers, called legal decompositions. Does this mean all PLRS are complete?
+%        \pause
+%        \item No. For legal decompositions, sequence terms can be used more than once. This is not allowed for completeness decompositions.
+        %elements of the sequence can be used multiple times.
+%    \end{itemize}
+    
+%    \pause
+    
+%    \begin{example}
+%        The PLRS $[1,3]$ has terms $1, 2, 5, 11, \ldots$. The unique \emph{legal} decomposition for $9$ is $5 + 2(2)$, where the term $2$ is used twice. However, no \emph{complete} decomposition for $9$ exists.
+%    \end{example}
+%\end{frame}
+
+\begin{frame}{
+%\begin{tikzpicture}[scale=0.5]\tikzling[signpost=\scalebox{0.6}{3},\randomhead]\end{tikzpicture}
+    Brown's Criterion}
+    \begin{theorem}[Brown]
+    A nondecreasing sequence $\{H_i\}_{i \ge 1}$ is complete if and only if $H_1 = 1$ and for every $n \ge 1$,\vspace{-0.1in}
+        \[
+            H_{n + 1} \leq 1 + \sum_{i = 1}^{n} H_i.
+        \]
+    \end{theorem}
+	\begin{itemize}
+\pause
+\item $[1,0,1,0,0,12]$ has terms $\{1,2,3,5,8,12,29,\textcolor{blue}{61},\dots \}$\\
+         and so computing the sums $\sum_{i=1}^{n}H_i +1$ we see $\{2,4,7,12,20,32,\textcolor{blue}{61},\dots \}$\\
+\pause
+\item $[1,1,1,0,0,12]$ has terms $\{1, 2, 4, 8, 15, 28,\textcolor{red}{63},\dots \}$\\
+         and so computing the sums $\sum_{i=1}^{n}H_i +1$ we see $\{2,4,8,16,31,\textcolor{red}{59},\dots \}$
+	\end{itemize}
+    %\pause
+    %\bigskip
+    %\begin{definition}
+    %The \textbf{$\boldsymbol{n}$-th Brown's Gap} of a sequence $\{H_i\}_{i \ge 1}$ is $$B_{H, n} := 1 + \sum_{i=1}^{n-1} - H_n $$
+    %\end{definition}
+\end{frame}
+
+\section{Binet's Formula and Generalizations}
+
+\begin{frame}{Characteristic Polynomials}
+\begin{definition}
+	For a PLRS $\{ H_{n} \}$ defined by $[c_1,\ldots , c_{L}],$ define the characteristic polynomial
+	\[
+	p(x)=x^{L}-\sum_{i=1}^{L}c_{i}x^{L-i}
+	.\] 
+\end{definition}
+\pause
+\begin{itemize}
+\item
+ By Descartes's Rule of Signs, $p(x)$ must have precisely one positive root, which we call its \textbf{principal root}. 
+ \pause
+\item
+The principal root of the PLRS is always the largest, i.e., for any root $z\in \C,$ $\left| z \right|<r$. 
+\end{itemize}
+
+\end{frame}
+\begin{frame}{Binet's Formula}
+\begin{theorem}[Binet]
+The terms $F_1,F_2,\ldots $ of the Fibonacci sequence can be calculated explicitly as \[
+	F_{n}=\frac{1}{\sqrt{5}}\left( \varphi^{n}-\left( 1-\varphi  \right) ^{n} \right) 
+,\] 
+where $\varphi=\frac{1+\sqrt{5}}{2}$ denotes the Golden Ratio. 	
+\end{theorem}
+\pause
+\begin{itemize}
+\item
+	Note that $\varphi ,\; 1-\varphi $ are the roots of the characteristic polynomial $p(x)=x^2-x-1$ of this sequence. 
+\end{itemize}
+\pause
+Can we get a similar result for a generic PLRS?
+\end{frame}
+
+\begin{frame}{Generalized Binet's Formula}
+	\begin{theorem}[Generalized Binet's Formula]
+If $r_1,\ldots , r_{k}$ are the distinct roots of the characteristic polynomial of a linear recurrence $\{ H_{n} \}$, with multiplicities  $m_1,\ldots , m_{k}$, then there exist polynomials $q_1,\ldots , q_{k}$ with $\deg (q_i) \leq m_{i}-1$ for which \[
+	H_{n}=q_1(n)r_1^{n}+\ldots +q_{k}(n)r_{k}^{n}
+.\] 
+
+\end{theorem}
+\pause
+	\begin{itemize}
+\item
+	If $\{ H_{n} \}$ is a PLRS, we can let $r_1$ be its principal root; since $m_1=1$ and for all $ i, r_1>|r_{i}|$, we have that $H_{n}=\mathcal{O}(r_1^{n})$.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Slow- and Fast-Growing Sequences}
+\begin{itemize}
+\item
+	From Generalized Binet's Formula, we know $H_{n}=\mathcal{O}\left( r_1^{n} \right) $, so the asymptotic growth of $\{ H_{n} \}$ is determined by $r_1$.
+	\pause
+	\bigskip
+	\bigskip
+\item
+Generally speaking, complete sequences must grow relatively slowly. Can we relate the size of $r_1$ to completeness?
+\end{itemize}	
+\end{frame}
+\section{Bounding the Principal Root}
+\begin{frame}{First Bounds on $r_1$}
+Recall the definition $p(x)=x^{L}-\sum_{i=1}^{L}c_{i}x^{L-i}$.
+
+	\pause
+As the constant term  $c_{L}$ is a positive integer, we know $r_1>1;$ otherwise, as $c_{L}=\prod_{}^{}r_{i}^{m_{i}}$, and for all $i\geq 2$, $\left| r_{i} \right|<r_1$, we would have $0<|c_{L}|<1$. 
+	
+\pause
+\begin{lemma}[SMALL 2020]
+If $H_n$ is a complete PLRS and $r_1$ is its principal root, then $r_1\leq 2$.
+\end{lemma}
+\pause
+\begin{proof}
+	Otherwise, as $H_{n}=\mathcal{O}\left( r_1^{n} \right) $, for large $n$ our terms would exceed the maximal sequence $\{ 2^{n-1} \}$.
+\end{proof}
+	\pause
+ Note: $r_1\leq 2$ is necessary, but not sufficient!
+
+
+\end{frame}
+\begin{frame}{Is 2 a Useful Bound?}
+		Is 2 the best upper bound for roots of complete sequences?
+			\pause
+	\begin{itemize}
+	\item
+		2 is optimal: we can find complete sequences with roots of sizes arbitrarily close to 2, and even with roots of size exactly 2. (Sequences of the form $[\underbrace{1,\ldots,1}_{m}]$.)
+	\pause
+\item
+Checking $r_1\leq 2$ is a fast method to eliminate candidates for completeness. \pause How to do this effectively?
+\pause
+\item
+	As $p(x)=x^{L}-\sum_{i=1}^{L}c_{i}x^{L-i}$ has exactly one positive root, and $p(x)>0$ for large $x$, we see $r_1\leq 2$ if and only if $p(2)\geq 0$. This is much faster than checking Brown's Criterion!
+	\end{itemize}
+\end{frame}
+\begin{frame}{Lower Bound}
+	\begin{lemma}[SMALL 2020]
+	For any $L $, there exists a second bound $B_{L}$ such that if a sequence $[c_1,\ldots , c_{L}]$ is incomplete, then  $r_1\geq B_{L}$.
+\end{lemma}
+\pause
+\begin{proof}
+	\begin{itemize}
+	\item
+		There are finitely many sequences $[ c_1,\ldots , c_{L} ]$ with $p(2)=2^{L}-\sum_{i=1}^{L}c_{i}2^{L-i}\geq 0$. \pause  For example, if any $c_{i}> 2^{i}$, we have $p(2)< 0$.
+		\pause
+\item
+	 There are finitely many incomplete sequences with $r_1\leq 2$, and so we can always find the incomplete sequence with smallest root - this is $B_{L}$.\end{itemize} 
+\end{proof}
+\pause
+We now aim to determine the precise values of $B_{L}$.
+\end{frame}
+\begin{frame}{A Few Combinatorial Results}
+	\begin{theorem}[SMALL 2020]
+	If $[c_1,\ldots , c_{L}]$ is any incomplete sequence, then the sequence $[c_1,\ldots , c_{L-1}+c_{L}]$ is also incomplete.
+\end{theorem}
+\pause
+\bigskip
+	\begin{theorem}[SMALL 2020]
+If a sequence $[c_1, \ldots, c_{L-1}, c_L]$ is complete, then so is $[c_1, \ldots, c_{L-1}, d_L]$ for any $1 \le d_L \leq c_L$.\\
+    \emph{Remark}. This is not true for $c_i$ in an arbitrary position.
+\end{theorem}
+\pause
+Both can be proven by working directly with Brown's Criterion.
+\end{frame}
+\begin{frame}{The Minimal Incomplete Sequence}
+	    \begin{theorem}[SMALL 2020]
+		    $[1, \underbrace{0, \ldots, 0}_{L-2}, N]$, is complete if and only if \vspace{-0.2in}
+            \[
+		    N \leq \left\lceil \frac{L(L+1)}{4}  \right\rceil.
+            \]
+	    \end{theorem}
+
+	    \pause
+\begin{conjecture}[SMALL 2020]
+For any given $L$, the incomplete sequence of length $L$ with the lowest principal root is $[1, 0, \ldots, 0, \left\lceil \frac{L(L+1)}{4}\right\rceil+1].$
+\end{conjecture}
+\pause
+\begin{itemize}
+\item
+
+	We denote by $\lambda _{L}$ the principal root of $[1,0,\ldots , 0, \left\lceil \frac{L(L+1)}{4} \right\rceil +1].$ The conjecture is equivalent to saying $\lambda _{L}=B_{L},$ for all $L.$
+\end{itemize}
+\end{frame}
+\begin{frame}{Arbitrarily Small Incomplete Roots}
+Even in the event the conjecture is false, asymptotic work on the $\lambda _{L}$ gives us useful information for the bound $B_{L}$.	
+\pause
+\medskip
+\begin{theorem}[SMALL 2020]
+For $L \in \Z _{+}$, let $\lambda _{L}$ be the sole positive root of \[
+	p_{L}(x)=x^{L}-x^{L-1}-\left\lceil \frac{L(L+1)}{4} \right\rceil 
+.\] 
+Then, for any $L,\; \lambda _{L}>\lambda _{L+1}$. Additionally, $\lim_{L \rightarrow \infty }\lambda _{L}=1.$\end{theorem}
+\pause
+Both of these results can be computed algebraically. 
+\pause
+
+This shows $\lim_{L \rightarrow \infty }B_{L}=1,$ so we can get incomplete sequences that grow arbitrarily slowly. If our conjecture holds, then we get the specific asymptotic behavior $L$, $B _{L}\approx \left( L/2 \right) ^{2/L}$.
+
+\end{frame}
+\begin{frame}{Proving the Conjecture}
+	We first show any sequence $[c_1,\ldots , c_{L}]$ where $\sum_{}^{}c_{i} $ is sufficiently large must have root greater than $\lambda _{L}.$
+\pause	
+
+\underline{Case 1}: $\sum_{k=1}^{L}c_k \geq 2+\left\lceil \frac{L(L+1) }{4} \right\rceil$
+
+We combine the following two invariant arguments:
+
+\pause
+\begin{itemize}
+\item The principal root of  $[c_1,\ldots, c_L]$ is strictly greater than that of $[c_1,\ldots,c_k-1,\ldots,c_L+1],$ for any $k$.
+\pause
+\item The principal root of $[1,0,\ldots,0,S]$ is strictly greater than that of $[1,0,\ldots,0,S-1]$.
+\end{itemize}
+\pause
+Combining these two, any sequence with large sum can be "reduced" to $[1,0,\ldots,0,\left\lceil \frac{L(L+1) }{4} \right\rceil+1]$. 
+\end{frame}
+\begin{frame}{Inducting for the General Case}
+
+	\begin{conjecture}
+		If $[c_1,\ldots , c_{L}]$ is an incomplete sequence with $\sum_{i=1}^{L}c_{i}\leq \left\lceil \frac{L(L+1)}{4} \right\rceil +2,$ then its principal root is at least $\lambda _{L}$.
+	\end{conjecture}
+	\pause
+\bigskip
+\underline{Base Case}:	
+For $L=2,$ we see $\; \left\lceil L(L+1)/4 \right\rceil +1=3$, and so we consider $[c_1,c_2]$ with $c_1+c_2\leq 4$. The only incomplete sequences here are $[2,1],[2,2],[1,3],[3,1]$, with roots $2.414,$ $ 2.731,$ $ 2.303,$ $ 3.303$. The smallest corresponds to $[1,3]=[1, \left\lceil (2\cdot 3)/4 \right\rceil +1],$ and so the Lemma holds.
+\end{frame}
+\begin{frame}{Inducting for the General Case}
+	We use strong induction. Suppose the lemma holds for all lengths up to $L$, and let $[c_1,\ldots , c_{L},c_{L+1}]$ be an incomplete sequence with $\sum_{i=1}^{L+1}c_{i}\leq \left\lceil \frac{\left( L+1 \right) \left( L+2 \right) }{4} \right\rceil +2$.
+	\pause
+	\begin{itemize}
+	\item
+		We can show analytically that the root of $[c_1,\ldots , c_{L},c_{L+1}]$ is greater than that of $[c_1,\ldots , c_{L}]$. Thus if $[c_1,\ldots , c_{L}]$ is incomplete, its root exceeds $\lambda _{L}$ by induction hypothesis, and so the root of $[c_1,\ldots , c_{L},c_{L+1}]$ exceeds $\lambda _{L+1}.$
+		\pause
+	\item
+		If $\sum_{i=1}^{L}c_{i}>\left\lceil L(L+1)/4 \right\rceil +2$, a similar argument shows the root of $[c_1,\ldots , c_{L},c_{L+1}]$ exceeds $\lambda _{L+1}.$ 	
+		\pause
+	\end{itemize}
+	Thus we are reduced to the case where $[c_1,\ldots , c_{L}]$ is complete and has $\sum_{i=1}^{L}c_{i}\leq \left\lceil L(L+1)/4 \right\rceil +2$.
+\end{frame}
+\begin{frame}{Remaining Case}
+	We we have reduced this to the case where $[c_1,\ldots , c_{L}]$ is complete and has $\sum_{i=1}^{L}c_{i}\leq \left\lceil L(L+1)/4 \right\rceil +2$, yet $[c_1,\ldots ,c_{L}, c_{L+1}]$ is incomplete. \pause As $[c_1,\ldots , c_{k}]$ has root below $\lambda _{k}$ for all $k$, we at least have that for any $1\leq k\leq L+1$,
+\begin{center}\resizebox{0.4\textwidth}{!}{$
+	\sum_{i=2}^{k}c_{i}\leq \left\lceil \frac{k(k+1)}{4} \right\rceil+1.
+$}\end{center}
+\pause
+If $[c_1,\ldots , c_{L},c_{L+1}]$ is incomplete, then by previous result, $[c_1,\ldots , c_{L}+c_{L+1}]$ is incomplete too. Thus root of $[c_1,\ldots , c_{L}+c_{L+1}]$ exceeds $\lambda _{L}$, yet root of $[c_1,\ldots , c_{L}, c_{L+1}]$ is below $\lambda _{L+1}$, from which we get
+\[
+	\sum_{i=2}^{L}c_{i}\left( \lambda _{L+1}^{L+1-i}-\lambda _{L}^{L-i} \right) <\frac{L+2}{2}
+.\] 
+\end{frame}
+\begin{frame}{Remaining Case}
+	Using the bound
+	\[
+	\sum_{i=2}^{L}c_{i}\left( \lambda _{L+1}^{L+1-i}-\lambda _{L}^{L-i} \right) <\frac{L+2}{2}
+,\] 
+we see through asymptotic work that this forces the first $32.5 \%$ of the $c_{i}$ to be 0 (excluding $c_1$).
+\pause
+
+All experimental evidence for values of $L$ up to 30 suggest that under these conditions,  $[c_1,\ldots , c_{L},c_{L+1}]$ is only incomplete for huge values of $c_{L+1}$: much too big for the bounds on $\sum_{}^{}c_{i} $ to hold.
+\pause
+\[
+	[1,\underbrace{0,\ldots , 0}_{19},116] \; \;  \pause \; \; [1,\underbrace{0,\ldots , 0}_{9},32,\underbrace{0,\ldots , 0}_{9},2932]
+.\] 
+
+\end{frame}
+\section{Denseness of Principal Roots in $[1,2]$}
+\begin{frame}{Denseness of Incomplete Roots}
+	\begin{theorem}[SMALL 2020]
+	For any $L\in \Z ^{+}$, let $R_{L}$ be the set of roots of all incomplete PLRS of length $L$. Then, for any $\varepsilon >0,$ there exists an $M$ such that for all $L>M$, for any $\varepsilon $-ball $B_{\varepsilon }\subset [ 1,2 ]$, $B_{\varepsilon }\cap R_{L}\neq \varnothing.$
+\end{theorem}
+\pause
+\bigskip
+\begin{corollary}
+	The set $R=\bigcup _{L=1}^{\infty }R_{L}$ of all principal roots of incomplete sequences is dense in $[1,2]$.
+\end{corollary} 
+
+\end{frame}
+\begin{frame}{Proof of Denseness Theorem}
+We use the fact that the $\lambda _{L}$ roots are decreasing and fulfill $\lim_{L \rightarrow \infty }\lambda _{L}=1$.	
+\pause
+\begin{proof}
+We analyze the set of the roots of the following list of incomplete sequences:
+\begin{center}\resizebox{0.9\textwidth}{!}{$
+	[1,0,\ldots , 0,\left\lceil \frac{L(L+1)}{2} \right\rceil +1],\; 	[1,0,\ldots , 0,\left\lceil \frac{L(L+1)}{2} \right\rceil +2],\; \ldots , 	[1,0,\ldots , 0,2^{L} ]
+$}\end{center}
+\pause
+We know the root of the first sequence approaches 1. We can show that the roots of consecutive sequence increase at a decreasing rate. Thus for $\lambda _{L}<1+\varepsilon $, we see roots are going up by at most $\varepsilon $. Since the root of the last sequence exceeds 2, the roots will go through every $\varepsilon $-ball in $(1,2)$.
+\end{proof}
+
+
+
+
+\end{frame}
+
+\begin{frame}{Denseness of Complete Roots}
+\begin{conjecture}[SMALL 2020]
+	Let $C$ be the set of roots of complete PLRS. Then, $C$ is dense in the interval $(1,2)$.
+\end{conjecture}
+\pause
+\begin{itemize}
+\item
+Although we have not been able to prove this rigorously, it seems that a similar argument as before is possible, only considering a different set of sequences, namely those of the form 
+\end{itemize}
+\[
+	[1,0,\ldots , 0,\underbrace{1,\ldots , 1}_{m},N]
+.\] 
+
+
+\end{frame}
+
+\section{Conclusion}
+\begin{frame}{Conclusion}
+Here, we have developed:
+\begin{itemize}
+\item
+	A much more computationally efficient way to check completeness for most sequences. Bounding root size is $\mathcal{O}\left( L^2 \right) $ as it amounts to evaluating polynomial, checking Brown's Criterion is a $\mathcal{O}\left( 2^{L} \right) $ problem.
+\pause
+\item
+A narrowing-down to the precise interval where complete and incomplete sequences interact.
+\pause
+\item Proof that complete and incomplete sequences are evenly spread out throughout that interval.
+\end{itemize}
+\pause 
+\textbf{Future Work}: Proving the remaining conjectures in the presentation.
+\end{frame}
+
+\begin{frame}{Bibliography}
+\begin{thebibliography}{BBGILMT}
+
+
+    \bibitem[MMMS]{MMMS} Thomas C.\ Martinez, Steven J.\ Miller, Clay Mizgerd, and Chenyang Sun. Generalizing Zeckendorf's Theorem to Homogeneous Linear Recurrences, 2020
+	
+	% Generalized Binet's formula
+	\bibitem[BBGILMT]{BBGILMT} Olivia Beckwith, Amanda Bower, Louis Gaudet, Rachel Insoft, Shiyu Li, Steven J.\ Miller, and Philip Tosteson. The Average Gap Distribution for Generalized Zeckendorf Decompositions, Dec 2012.
+	
+	% Brown's criterion
+	\bibitem[Br]{Br} J.\ L.\ Brown. Note on complete sequences of integers. \emph{The  American  Mathematical  Monthly}, 68(6):557, 1961.
+	
+\end{thebibliography}
+\end{frame}
+
+\begin{frame}{Acknowledgements}
+    \begin{itemize}
+        \item Thank you. Any questions?
+    
+        \item This research was conducted as part of the 2020 SMALL REU program at Williams College. This work was supported by NSF Grants DMS1947438 and DMS1561945, Williams College, Yale University, and the University of Rochester.
+    \end{itemize}
+\end{frame}
+
+%\begin{frame}{Legal Decompositions vs. Completeness}
+%    \begin{itemize}
+%        %\item By Zeckendorf's Theorem, any positive integer can be written uniquely as a sum of non-adjacent Fibonacci numbers. Thus, they are also complete.
+%        \item Previous work on PLRS relates to \emph{legal decompositions}, which are another way to write integers as sums of sequence terms.
+%        \item Given any PLRS, there is a legal decomposition of every positive integer. Does this mean that all PLRS are complete?
+%        %All PLRS have a type of unique decomposition for all positive integers, called legal decompositions. Does this mean all PLRS are complete?
+%        %\pause
+%        \item No. For legal decompositions, sequence terms can be used more than once. This is not allowed for completeness decompositions.
+%        %elements of the sequence can be used multiple times.
+%    \end{itemize}
+%    
+%    %\pause
+%    
+%    \begin{example}
+%        The PLRS $[1,3]$ has terms $1, 2, 5, 11, \ldots$. The unique \emph{legal} decomposition for $9$ is $5 + 2(2)$, where the term $2$ is used twice. However, no \emph{complete} decomposition for $9$ exists.
+%    \end{example}
+%\end{frame}
+
+\begin{frame}{Proof of Brown's Criterion}
+    \begin{thm}[Brown]
+	If $a_n$ is a nondecreasing sequence, then $a_n$ is complete if and only if $a_1 = 1$ and for all $n > 1$,
+	\begin{equation}
+	a_{n+1} \leq 1+ \sum_{i = 1}^{n} a_i. \nonumber
+	\end{equation}
+\end{thm}
+
+
+	\textit{Proof.} Let $\{a_n\}_{n = 1}^{\infty}$ be a sequence of positive integers, not necessarily distinct, such that $a_1 = 1$ and 
+	\begin{equation}
+	    a_{n + 1} \leq 1 + \sum_{i = 1}^{n}{a_i} \nonumber
+	\end{equation}
+	for $n \in \{ 1, 2, \ldots\}$. Then for $0<n<1+ \sum_{i = 1}^{k}{a_i}$ there exists $\{b_i\}_{i = 1}^{k}$, $b_i \in \{0, 1\}$ such that $n = \sum_{i = 1}^{k}{b_i a_i}$. 
+\end{frame}
+
+\begin{frame}{Proof of Brown's Criterion}
+	
+	We proceed by induction on $k$. The claim clearly holds for $k = 1$, so assume that it holds for some $k = N$. Hence, we must show that $0 < n < 1 +   \sum_{i = 1}^{N + 1}{a_i}$ implies the existence of $\{\gamma_i\}^{N + 1}_{i =1}$, $\gamma_i \in \{0, 1\}$ such that $n = \sum_{i = 1}^{N + 1}{\gamma_i a_i}$. Due to the inductive hypothesis, we only consider values satisfying
+	\begin{equation}
+	    1 + \sum_{i = 1}^{N}{a_i} \leq n < 1 + \sum_{i = 1}^{N + 1}{a_i}. \nonumber
+	\end{equation}
+	Note that
+	\begin{equation}
+	    n-a_{N + 1} \geq 1 + \sum_{i = 1}^{N}{a_i - a_{N + 1}} \geq 0 \nonumber
+	\end{equation}
+    by assumption. Now, if $n - a_{N + 1} = 0$, the conclusion follows. 
+    
+\end{frame}
+\begin{frame}{Proof of Brown's Criterion}
+    
+    Otherwise,
+    \begin{equation}
+        0 < n - a_{N + 1} < 1 + \sum_{i = 1}^{N}{a_i} \nonumber
+    \end{equation}
+    implies the existence of $\{b_i\}_{i = 1}^{N}$ such that $n - a_{N + 1} = \sum_{i = 1}^{N}{b_i a_i}$. Then the result is immediate on transposing $a_{N + 1}$ and identifying $\gamma_i = b_i$ for $i \in \{1, \ldots, N\}$ and $\gamma_{N + 1} = 1$. This completes the sufficiency part of the proof.
+    
+\end{frame}
+\begin{frame}{Proof of Brown's Criterion}
+    
+    For the necessity, assume that there exists $n_0 \geq 1$ such that $a_{n_0 + 1} \geq 1 + \sum_{i = 1}^{n_0} a_i$. Then, however, \begin{equation}
+        a_{n_0 + 1} > a_{n_0 + 1} - 1 > \sum_{i = 1}^{n_0} a_i, \nonumber
+    \end{equation}
+    which implies that the positive integer $a_{n_0 + 1} - 1$ cannot be represented in the form $\sum_{i = 1}^{k}{b_i a_i}$. This leads to a contradiction and completes the proof.
+\end{frame}
+
+\end{document}

@@ -1,0 +1,499 @@
+% based on a file Copyright 2007 by Till Tantau
+% This file may be distributed and/or modified
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+\documentclass{beamer}
+\setbeamertemplate{footline}[frame number]
+\usetheme{Darmstadt}
+\usecolortheme{rose}
+\xdefinecolor{pur}{rgb}{.25,.2,.80}
+\usepackage{amssymb,amsmath,amsthm}
+\newcommand{\purco}[1]{{\color{pur}{#1}}}
+\newcommand{\purline}{${\color{pur}\underline{\hspace{4.3in}}}$}
+\newtheorem{defn}{Definition}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{coro}{Corollary}
+\newtheorem*{rmk}{Remark}
+\newtheorem*{question}{Question}
+\newtheorem*{conjecture}{Conjecture}
+
+\setbeamertemplate{navigation symbols}{}
+\usepackage{mathrsfs}
+
+% Standard packages
+
+\usepackage[english]{babel}
+\usepackage[latin1]{inputenc}
+\usepackage{times}
+\usepackage[T1]{fontenc}
+\usepackage{hyperref}
+\usepackage{comment}
+
+%\newcommand{\db}{\overline{d}}
+\newcommand{\burl}[1]{\textcolor{blue}{\url{#1}}}
+\newcommand{\emaillink}[1]{\textcolor{blue}{\href{mailto:#1}{#1}}}
+
+\newcommand{\blue}[1]{ {\color[rgb]{0,0,.85} #1 } }
+\newcommand{\red}[1]{ {\color[rgb]{.55,0,.15} #1 } }
+\newcommand{\marroon}[1]{ {\color[rgb]{.55,.0,.5} #1 } }
+\newcommand{\green}[1]{ {\color[rgb]{0,.85,0} #1 } }
+
+%%make section title slides show up (added by Roger)
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\newcommand{\mcs}{\mathcal{S}}
+\newcommand{\mcd}{\mathcal{D}}
+\newcommand{\mcdc}{\mathcal{D}^{\rm c}}
+\newcommand{\mcsc}{\mathcal{S}^{\rm c}}
+\newcommand{\mel}{\mathcal{M}}
+\newcommand{\ncr}[2]{{#1 \choose #2}}
+\newcommand{\un}{\text{U}}
+\newcommand{\sy}{\text{USp}}
+\newcommand{\usp}{\text{USp}}
+\newcommand{\soe}{\text{SO(even)}}
+\newcommand{\soo}{\text{SO(odd)}}
+\newcommand{\so}{\text{O}}
+\newcommand{\sym}{\text{sym}}
+
+\newcommand{\fon}{\frac{1}{N}}
+\newcommand{\fonk}{ \frac{1}{N^{k+1}}}
+\newcommand{\glik}{\gl_i^k(A)}
+\newcommand{\mtk}{M_{2k}(N)}
+\newcommand{\bs}[2]{b_{|i_{#1}-i_{#2}|}}
+\newcommand{\Inv}[1]{\frac{1}{#1}}
+
+
+\renewcommand{\i}{{\mathrm{i}}} % sqrt -1
+
+\newcommand{\twocase}[5]{#1 \begin{cases} #2 & \text{#3}\\ #4
+&\text{#5} \end{cases}   }
+
+\newcommand{\threecase}[7]{#1 \begin{cases} #2 & \text{{\rm #3}}\\ #4
+&\text{{\rm #5}}\\ #6 & \text{{\rm #7}} \end{cases}   }
+
+
+\newcommand{\lp}{\left(}
+\newcommand{\rp}{\right)}
+
+
+\renewcommand{\i}{{\mathrm{i}}} % sqrt -1
+
+\newcommand\be{\begin{equation}}
+\newcommand\ee{\end{equation}}
+\newcommand\bea{\begin{eqnarray}}
+\newcommand\eea{\end{eqnarray}}
+\newcommand\bi{\begin{itemize}}
+\newcommand\ei{\end{itemize}}
+\newcommand\ben{\begin{enumerate}}
+\newcommand\een{\end{enumerate}}
+
+
+\newcommand{\notdiv}{\nmid}
+
+\newcommand{\pr}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}}
+
+\DeclareMathOperator{\nsmod}{mod}
+\newcommand{\nospacemod}[1]{\nsmod#1}
+
+\newenvironment{variableblock}[3]{%
+  \setbeamercolor{block body}{#2}
+  \setbeamercolor{block title}{#3}
+  \begin{block}{#1}}{\end{block}}
+
+% Author, Title, etc.
+
+\Large
+
+\title[PLRS]
+{
+  Completeness of Positive Linear Recurrence Sequences
+}
+
+\author[Steven J Miller] %%
+{\textcolor{black}{El\.zbieta Bo\l dyriew (eboldyriew@colgate.edu) \\ John Haviland (havijw@umich.edu) \\ Phuc Lam (plam6@u.rochester.edu) \\ John Lentfer (jlentfer@hmc.edu) \\ Fernando\ Trejos\ Su\'arez (fernando.trejos@yale.edu) \\[0.1in] Joint work with Steven J. Miller}\vspace{-0.25in}}
+
+\date[2020]
+{\small{\textcolor{blue}{The Nineteenth International Conference on Fibonacci Numbers and Their Applications \\ 07/21/2020}}
+	%\alert{College Name, Date, Year}
+}
+
+
+% The main document
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\large
+
+%%%%%%%%%%%%%%%%%%%%%%% INTRO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+\begin{frame}{Positive Linear Recurrence Sequences}
+    \begin{definition}
+        A sequence $\{H_i\}_{i \ge 1}$ of positive integers is a {\bf Positive Linear Recurrence Sequence (PLRS)} if the following properties hold: 
+        \begin{itemize}
+            \pause
+            \item (Recurrence relation) There are non-negative integers $L, c_1, \dots, c_L$ such that \vspace{-0.1in}
+                \[ 
+                    H_{n+1} = c_1H_n + \dots + c_LH_{n+1-L}
+                \]
+            with $L, c_1, c_L$ positive.
+            \pause
+            \item (Initial conditions) $H_1 = 1$, and for $1 \le n < L$, \vspace{-0.1in}
+                \[
+                    H_{n+1} = c_1H_n + \cdots + c_nH_1 + 1
+                \]
+        \end{itemize}
+    \end{definition}
+\end{frame}
+
+\begin{frame}{Positive Linear Recurrence Sequences}
+    \begin{itemize}
+        \item We write $[c_1, \ldots ,c_L]$ for $H_{n+1} = c_1 H_n + \cdots + c_L H_{n-L+1}$.\\ \
+        \pause
+        %\item The definition requires that $c_1, \ldots ,c_L$ must be all non-negative, with the first and last entries positive. 
+        %\item The initial conditions are specified to give unique decompositions (by a generalized Zeckendorf Theorem)
+        \item For example, for the Fibonacci numbers, we write $[1,1]$. This definition gives initial conditions $F_1=1,\; F_2=2$.\\ \
+        \pause
+        \item Despite satisfying positive linear recurrences, the Lucas and Pell numbers are not PLRS, since their initial conditions do not meet the definition.
+    \end{itemize}
+\end{frame}
+
+
+%\section{Completeness of PLRS}
+\begin{frame}{Introduction to Completeness}
+    \begin{definition}
+        A sequence $\{H_i\}_{i \ge 1}$ is called \textbf{complete} if every positive integer is a sum of its terms, using each term at most once.
+    \end{definition}
+    \medskip
+    \begin{itemize}
+    \pause
+     \item The sequence with the recurrence $[1, 3]$ is \emph{not} complete. Its terms are $\{1,2,5,11,\dots\}$; you cannot get $4$ or $9$ as the sequence grows too quickly.\medskip
+    \pause
+    \item The Fibonacci sequence $F_{n + 1} = F_n + F_{n - 1}$, with initial conditions $F_1 = 1$, $F_2 = 2$, is complete (follows from Zeckendorf's Theorem).
+    \end{itemize}
+    
+    
+\end{frame}
+
+\begin{frame}{The Doubling Sequence}
+    The PLRS $[2]$, which has the recurrence $H_{n+1} = 2H_n$, has terms $H_n = 2^{n - 1}$ and is complete because every integer has a binary representation.
+    \pause
+    \bigskip
+    \begin{theorem}[Brown]
+    The complete sequence with maximal terms is $H_n= 2^{n-1}$.
+    \end{theorem}
+        %\begin{theorem}
+        %The sequence $a_n = 2^{n - 1}$ is the only complete sequence for which the representation of every positive integer is unique.
+        %\end{theorem}
+    \pause
+    \bigskip
+    Any PLRS of the form $[1, \ldots, 1, 2]$ has the same terms as $[2]$, i.e., $H_n = 2^{n - 1}$.
+    %For any $m$, the sequence defined by $[\underbrace{1,\ldots,1}_{m},2]$ is identical to the sequence defined by $[2]$.
+    %this sequence, namely $\forall n, H_n=2^{n-1}$.
+\end{frame}
+%\begin{frame}{Legal Decompositions vs. Completeness}
+%    \begin{itemize}
+        %\item By Zeckendorf's Theorem, any positive integer can be written uniquely as a sum of non-adjacent Fibonacci numbers. Thus, they are also complete.
+%        \item Previous work on PLRS relates to \emph{legal decompositions}, which are another way to write integers as sums of sequence terms.
+%        \item Given any PLRS, there is a legal decomposition of every positive integer. Does this mean that all PLRS are complete?
+        %All PLRS have a type of unique decomposition for all positive integers, called legal decompositions. Does this mean all PLRS are complete?
+%        \pause
+%        \item No. For legal decompositions, sequence terms can be used more than once. This is not allowed for completeness decompositions.
+        %elements of the sequence can be used multiple times.
+%    \end{itemize}
+    
+%    \pause
+    
+%    \begin{example}
+%        The PLRS $[1,3]$ has terms $1, 2, 5, 11, \ldots$. The unique \emph{legal} decomposition for $9$ is $5 + 2(2)$, where the term $2$ is used twice. However, no \emph{complete} decomposition for $9$ exists.
+%    \end{example}
+%\end{frame}
+
+\begin{frame}{Brown's Criterion}
+    \begin{theorem}[Brown]
+    A nondecreasing sequence $\{H_i\}_{i \ge 1}$ is complete if and only if $H_1 = 1$ and for every $n \ge 1$,\vspace{-0.1in}
+        \[
+            H_{n + 1} \leq 1 + \sum_{i = 1}^{n} H_i.
+        \]
+    \end{theorem}
+    \pause
+    \bigskip
+    Can we bound where a sequence must fail Brown's Criterion?
+    \pause We think so!
+    \bigskip
+    \begin{conjecture}[SMALL 2020]
+        If a PLRS $H_{n + 1} = c_1 H_n + \cdots + c_L H_{n + 1 - L}$ incomplete, then it fails Brown's criterion before the $2L$-th term.
+    \end{conjecture}
+\end{frame}
+
+\section{Families of Sequences}
+
+\begin{frame}{Analyzing Families of Sequences}
+    \begin{theorem}[SMALL 2020]
+        \begin{enumerate}
+        \item     $[1, \underbrace{0, \ldots, 0}_k, N]$, is complete if and only if \vspace{-0.2in}
+            \[
+            N \leq \left\lfloor \frac{(k + 2)(k + 3)}{4} + \frac{1}{2} \right\rfloor.
+            \]
+        \item $[1, 1, \underbrace{0, \ldots, 0,}_k N]$, is complete if and only if
+        \vspace{-0.2in}
+            \[
+            N\leq \left\lfloor\frac{F_{k+6}-(k+5)}{4}\right\rfloor,
+            \]
+            where $F_k$ is the $k$th Fibonacci number.
+        \end{enumerate}
+    \end{theorem}
+     
+\end{frame} 
+
+\begin{frame}{Proof Sketch}
+    \begin{theorem}[SMALL 2020]
+        \begin{enumerate}
+        \item $[1, 0, \ldots, 0, N]$, with $k$ zeros, is complete if and only if
+            $N \leq \left\lfloor \frac{(k + 2)(k + 3)}{4} + \frac{1}{2} \right\rfloor$.
+        \end{enumerate}
+    \end{theorem}
+    \emph{Partial Proof.}
+        We sketch that if $N_{\max} = \left\lfloor \frac{(k + 2)(k + 3)}{4} + \frac{1}{2} \right\rfloor$, then the sequence is complete. It is similar for $N < N_{\max}$.\\
+        \pause
+        With the recurrence relation and Brown's Criterion,
+        \begin{align*}
+            H_{n+1} &=H_n + N_{\max}H_{n-k-1}\\
+        &\leq H_n +(N_{\max}-1)H_{n-k-1} + H_{n-k-2} + \dots + H_1 +1
+        \intertext{By induction, $(N_{\max}-1)H_{n-k-1}\leq H_{n-1} +\dots+H_{n-k-1}$, so}
+         &\leq H_n + \dots + H_1 +1.
+        \end{align*}
+\end{frame}
+
+\begin{frame}{Example for $L=6$}
+    By the previous theorem, $[1,0,0,0,0,N]$ is complete for $N \leq 11$.\\
+    \bigskip
+    \pause
+    
+    \setbeamercolor{block}{bg=yellow, fg=white}
+    \begin{variableblock}{Question}{bg=white,fg=black}{bg=purple,fg=white}
+    Does there exist a complete PLRS of length $L=6$ with $N > 11$?
+    \end{variableblock}
+        %\item Is this the highest $N$ we can get for any PLRS of length $L=6$?
+        %\item By the second part of the theorem, $[1,1,0,0,0,N]$ is complete for $N \leq 11$ by switching the first zero to a one!
+\end{frame}
+
+\begin{frame}{Example for $L=6$}
+Here are the maximal last terms for preserving completeness for several other sequences of length $L=6$:
+\pause
+\begin{itemize}
+    \item $[1,0,0,0,0,N]$ is complete for $N \leq 11$.
+    \item $[1,1,0,0,0,N]$ is complete for $N \leq 11$.
+    \item $[1,0,1,0,0,N]$ is complete for $N \leq 12$.
+    \item $[1,0,0,1,0,N]$ is complete for $N \leq 11$.
+    \item $[1,0,0,0,1,N]$ is complete for $N \leq 10$.
+\end{itemize}
+\pause
+Why is $[1,0,1,0,0,12]$ complete, but $[1,0,0,0,0,12]$ is not complete? 
+    
+\end{frame}
+
+\begin{frame}{Example for $L=6$}
+Why is $[1,0,1,0,0,12]$ complete, but $[1,0,0,0,0,12]$ is not complete? \\
+\begin{itemize}
+\pause
+\item $[1,0,0,0,0,12]$ has terms $\{1,2,3,4,5,6,18,\textcolor{red}{42},\dots \}$\\
+         and so computing the sums $\sum_{i=1}^{n}H_i +1$ we see $\{2,4,7,11,16,22,\textcolor{red}{40},\dots \}$\\    
+\pause
+\item $[1,0,1,0,0,12]$ has terms $\{1,2,3,5,8,12,29,\textcolor{blue}{61},\dots \}$\\
+         and so computing the sums $\sum_{i=1}^{n}H_i +1$ we see $\{2,4,7,12,20,32,\textcolor{blue}{61},\dots \}$\\
+\pause
+\item $[1,1,1,0,0,12]$ has terms $\{1, 2, 4, 8, 15, 28,\textcolor{red}{63},\dots \}$\\
+         and so computing the sums $\sum_{i=1}^{n}H_i +1$ we see $\{2,4,8,16,31,\textcolor{red}{59},\dots \}$\\
+\pause
+% Talk about jump in sequence when last coefficient comes into play
+%\item In order to maximize $N$, a complete sequence cannot grow too fast; however, by increasing intermediate terms, it is possible to give the partial sums a boost which will allow for a larger final coefficient.
+\end{itemize}
+\end{frame}
+\begin{frame}{Sequences of Initial Ones}
+\begin{theorem}[SMALL 2020]
+If a sequence $[\underbrace{1,\ldots,1}_m,\underbrace{0,\ldots,0}_k,N]$ is complete with $m\geq 3,$ then
+%\setlength{\abovedisplayskip}{0pt}
+%\setlength{\belowdisplayskip}{0pt}
+% The following line would not compile for me
+%\[\resizebox{1\textwidth}{!}{N \leq \frac{1}{2} \left( 1 + \sum\limits_{i = 1}^{k + 1}F_i^{(m)} + \sum\limits_{i = 1}^{k + 1 - m}F^{(m)}_{i} + \cdots + \sum\limits_{i = 1}^{(k + 1)\nospacemod{m}}F^{(m)}_{i} \right)}\]
+\[{N \leq \frac{1}{2} \left( 1 + \sum\limits_{i = 1}^{k + 1}F_i^{(m)} + \sum\limits_{i = 1}^{k + 1 - m}F^{(m)}_{i} + \cdots + \sum\limits_{i = 1}^{(k + 1)\nospacemod{m}}F^{(m)}_{i} \right)}\]
+where $F_{i}^{(m)}$ is the $m$-bonacci sequence, $[\underbrace{1,\ldots,1}_m]$.
+\end{theorem}
+\end{frame}
+\begin{frame}{Theorem on Adding Ones}
+    \begin{theorem}[SMALL 2020]
+\begin{itemize}
+\item
+For $L \geq 6$, consider the sequence $\{ H_n\}$ given by $[1,0,\dots,0,1,0,\ldots,0,M]$. Then, if  $M$ is maximal such that $\{H_n\}$ is complete, and $N$ is maximal such that 
+$[1,0,\dots,0,N]$ is complete, we have $M\geq N$.
+\item
+For a fixed length $L$, the sequence $[1,\underbrace{0,\ldots, 0}_{k},\underbrace{1,\ldots,1}_{m},N]$ with $m$ ones has a lower bound on $N$ than the sequence $[1,\underbrace{0,\ldots, 0}_{k-1},\underbrace{1,\ldots,1}_{m+1},N]$.
+
+In particular, if $m<\frac{L}{2}$, the bound is precisely
+\begin{center}\resizebox{0.9\textwidth}{!}{$\displaystyle N \leq \left\lfloor \frac{\left( L-m \right) \left( L+m+1 \right) }{4}+\frac{1}{48}m(m+1)(m+2)(m+3)+\frac{1-2m}{2} \right\rfloor.$}\end{center}
+
+\end{itemize}
+\end{theorem}
+\end{frame}
+\section{Modifying Sequences}
+\begin{frame}{Modifying Coefficients of a PLRS}
+When studying a PLRS, what modifications to the recurrence coefficients preserve completeness or incompleteness?
+\pause
+\begin{theorem}[SMALL 2020]
+\begin{itemize}
+    \item If a sequence $[c_1, \ldots, c_{L-1}, c_L]$ is complete, then so is $[c_1, \ldots, c_{L-1}, d_L]$ for any $d_L \leq c_L$.\\
+    \emph{Remark}. This is not true for $c_i$ in any position.\\
+    \item If a sequence $[\underbrace{1, \ldots,1}_m,\underbrace{0,\ldots,0}_k, c_{L}]$ is complete and $c_{L}=2^{k+1}-1,$ $[\underbrace{1, \ldots,1}_m,\underbrace{0,\ldots,0}_k, c_{L}+j]$ is incomplete for any positive integer $j$.
+\end{itemize}
+\end{theorem}
+\end{frame}
+\begin{frame}{Modifying Lengths of a PLRS}
+\begin{theorem}[SMALL 2020]
+\begin{itemize}
+\item If a sequence $[c_1, \ldots, c_L]$ is incomplete, then so is $[c_1, \ldots, c_{L-1}+c_L]$.
+    \item If a sequence $[c_1, \ldots, c_{L}]$ is incomplete, then so is $[c_1, \ldots, c_{L}, c_{L+1}]$ for any $c_{L+1} > 0$.
+\end{itemize}
+\end{theorem}
+
+\pause 
+
+\begin{conjecture}[SMALL 2020]
+If a sequence $[\underbrace{1, \ldots,1}_m,\underbrace{0,\ldots,0}_k, c_{L}]$  is complete, then so is  $[\underbrace{1, \ldots,1}_{m+j},\underbrace{0,\ldots,0}_k, c_{L}]$ for any positive integer $j.$
+\end{conjecture}
+\end{frame}
+
+\section{Principal Roots}
+\begin{frame}{Principal Roots}
+    \begin{theorem}[Binet's Formula]
+    If $r_1, \ldots, r_k$ are the distinct roots of the characteristic polynomial of a PLRS $\{H_n\}$, then there exist polynomials $q_1,\ldots, q_k$ such that $ H_n = q_1(n)r_1^n+ \cdots +q_k(n)r_k^n$.
+    \end{theorem}
+    \pause
+    For PLRS, the characteristic polynomial has a unique positive root $r_1$ which is the largest in absolute value, called the \emph{principal root.} 
+    \pause
+    \begin{theorem}[SMALL 2020]
+        If $H_n$ is a complete PLRS and $r_1$ is its principal root, then $r_1\leq 2$.
+    \end{theorem}
+        
+\end{frame}
+
+\begin{frame}{Bounding Principal Roots}
+\begin{itemize}
+\item If a sequence is complete, $r_1 \leq 2$.
+\pause
+\item There exists a second bound $1<B_L<2$ on the principal roots, so that if a sequence is incomplete, the  its principal root $r_1$ satisfies $r_1 \geq B_L$. This bound is dependent on the length of the generating sequence $[c_1, \ldots, c_L]$. We conjecture the following:
+\begin{conjecture}[SMALL 2020]
+For any given $L$, the incomplete sequence of length $L$ with the lowest principal root is $[1, 0, \ldots, 0, \left\lceil \frac{L(L+1)}{4}\right\rceil+1].$
+\end{conjecture}
+\pause
+\item If this holds, then for large $L$, we would have $B_L \approx (L/2)^{2/L}$. In particular, $\lim_{L\rightarrow \infty}B_L=1$.
+\end{itemize}
+\end{frame}
+\begin{frame}{Root-Bounding Proof Sketch}
+\begin{conjecture}[SMALL 2020]
+For any given $L$, the incomplete sequence of length $L$ with the lowest principal root is $[1, 0, \ldots, 0, \left\lceil \frac{L(L+1)}{4}\right\rceil+1].$
+\end{conjecture}
+\pause
+Suppose $[c_1,\ldots,c_L]$ is an incomplete sequence.
+
+\underline{Case 1}: $\sum_{k=1}^{L}c_k \geq 2+\left\lceil \frac{L(L+1) }{4} \right\rceil$
+
+We combine the following two invariant arguments:
+\pause
+\begin{itemize}
+\item The principal root of  $[c_1,\ldots, c_L]$ is strictly greater than that of $[c_1,\ldots,c_k-1,\ldots,c_L+1],$ for any $k$.
+\pause
+\item The principal root of $[1,0,\ldots,0,S]$ is strictly greater than that of $[1,0,\ldots,0,S-1]$.
+\end{itemize}
+\pause
+Combining these two, any sequence with large sum can be "reduced" to $[1,0,\ldots,0,\left\lceil \frac{L(L+1) }{4} \right\rceil+1]$. 
+\end{frame}
+\begin{frame}{Root-Bounding Proof Sketch}
+\underline{Case 2}: $\sum_{k=1}^{L}c_k \leq 1+\left\lceil \frac{L(L+1) }{4} \right\rceil$ 
+
+It can be shown any ``counterexample'' would fulfill:
+
+\begin{itemize}
+\item $\forall 1\leq k\leq L+1$, \[\sum_{i=2}^{k}c_{i}\leq \left\lceil \frac{k(k+1)}{4} \right\rceil .\]
+
+\item $\displaystyle\sum_{i=2}^{L}c_{i}\left( \lambda _{L+1}^{L+1-i}-\lambda _{L}^{L-i} \right) < \frac{L+2}{2}$,
+where $\lambda_L$ is the root of $[1,0,\ldots, 0,\left\lceil L(L+1)/4 \right\rceil +1$.
+\end{itemize}
+
+This forces the coefficients of $[c_1,\ldots, c_L]$ to be small enough to force a contradiction; for example, an analytical argument shows the first $32.5\%$ or so must be $0$.
+
+\end{frame}
+\section{Future Directions}
+\begin{frame}{Future Directions}
+    \begin{itemize}
+    \item Extend analysis of the bound of $N$ in $[\underbrace{1,\ldots,1}_m,0,\ldots,0,N]$, which involves the  $m$-bonacci numbers, defined by $[\underbrace{1,\dots,1}_m]$.
+    \pause
+    \item Find the bound $N$ for arbitrary coefficients $c_2, \dots, c_{L-1}$ in $[1, c_2, \dots, c_{L-1}, N]$.
+    \pause
+    \item Prove the conjectures made in this presentation.
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Bibliography}
+\begin{thebibliography}{BBGILMT}
+
+
+    \bibitem[MMMS]{MMMS} Thomas C.\ Martinez, Steven J.\ Miller, Clay Mizgerd, and Chenyang Sun. Generalizing Zeckendorf's Theorem to Homogeneous Linear Recurrences, 2020
+	
+	% Generalized Binet's formula
+	\bibitem[BBGILMT]{BBGILMT} Olivia Beckwith, Amanda Bower, Louis Gaudet, Rachel Insoft, Shiyu Li, Steven J.\ Miller, and Philip Tosteson. The Average Gap Distribution for Generalized Zeckendorf Decompositions, Dec 2012.
+	
+	% Brown's criterion
+	\bibitem[Br]{Br} J.\ L.\ Brown. Note on complete sequences of integers. \emph{The  American  Mathematical  Monthly}, 68(6):557, 1961.
+	
+\end{thebibliography}
+\end{frame}
+
+\begin{frame}{Acknowledgements}
+    \begin{itemize}
+        \item Thank you. Any questions?
+    
+        \item This research was conducted as part of the 2020 SMALL REU program at Williams College. This work was supported by NSF Grant DMS1947438, Williams, Yale, and Rochester.
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Legal Decompositions vs. Completeness}
+    \begin{itemize}
+        %\item By Zeckendorf's Theorem, any positive integer can be written uniquely as a sum of non-adjacent Fibonacci numbers. Thus, they are also complete.
+        \item Previous work on PLRS relates to \emph{legal decompositions}, which are another way to write integers as sums of sequence terms.
+        \item Given any PLRS, there is a legal decomposition of every positive integer. Does this mean that all PLRS are complete?
+        %All PLRS have a type of unique decomposition for all positive integers, called legal decompositions. Does this mean all PLRS are complete?
+        %\pause
+        \item No. For legal decompositions, sequence terms can be used more than once. This is not allowed for completeness decompositions.
+        %elements of the sequence can be used multiple times.
+    \end{itemize}
+    
+    %\pause
+    
+    \begin{example}
+        The PLRS $[1,3]$ has terms $1, 2, 5, 11, \ldots$. The unique \emph{legal} decomposition for $9$ is $5 + 2(2)$, where the term $2$ is used twice. However, no \emph{complete} decomposition for $9$ exists.
+    \end{example}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,558 @@
+% based on a file Copyright 2007 by Till Tantau
+% This file may be distributed and/or modified
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+\documentclass{beamer}
+\setbeamertemplate{footline}[frame number]
+\usetheme[progressbar=frametitle]{metropolis}
+\makeatletter
+\setlength{\metropolis@titleseparator@linewidth}{2.5pt}
+\setlength{\metropolis@progressonsectionpage@linewidth}{2.5pt}
+\setlength{\metropolis@progressinheadfoot@linewidth}{2.5pt}
+\makeatother
+\usecolortheme{rose}
+\usepackage{amssymb,amsmath,amsthm}
+
+\setbeamertemplate{navigation symbols}{}
+
+% Standard packages
+\usepackage{hyperref}
+
+% Packages for tables
+\usepackage{graphicx}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{multirow}
+\usepackage{hhline}
+
+% fix for using \cline with \arrayrulecolor
+\makeatletter
+\patchcmd\@cline
+  {\arrayrulewidth\hfill}% search
+  {\arrayrulewidth\hfill\kern\z@}% replace
+  {}% success
+  {\errmessage{Patching \string\@cline\space failed}}% failure
+\makeatother
+
+%%make section title slides show up (added by Roger)
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+	\usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
+
+\newcommand{\bi}{\begin{itemize}}
+\newcommand{\ei}{\end{itemize}}
+
+\setlength{\leftmargini}{2ex}
+\setlength{\leftmarginii}{2ex}
+
+
+\newcommand{\notdiv}{\nmid}
+
+\newcommand{\pr}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\znz}{\Z / n \Z}
+\newcommand{\E}{\mathbb{E}}
+
+% make pause work in align & other math environments
+\makeatletter
+\let\save@measuring@true\measuring@true
+\def\measuring@true{%
+  \save@measuring@true
+  \def\beamer@sortzero##1{\beamer@ifnextcharospec{\beamer@sortzeroread{##1}}{}}%
+  \def\beamer@sortzeroread##1<##2>{}%
+  \def\beamer@finalnospec{}%
+}
+\makeatother
+
+% Author, Title, etc.
+\Large
+
+\title[MSTD]
+{
+  More Sums Than Differences Sets in Finite Non-Abelian Groups
+}
+
+\author[Steven J Miller] %%
+{\textcolor{black}{%
+	John Haviland (havijw@umich.edu)\\%
+	Ph\'uc L\^am (plam6@u.rochester.edu)\\%
+	John Lentfer (jlentfer@hmc.edu)\\%
+	Joint work with Elena Kim, Fernando Trejos\ Su\'arez, and Steven J.\ Miller%
+}}
+
+\date[2020]
+{\small\textcolor{blue}{
+	Young Mathematicians Conference\\%
+	Ohio State University\\%
+	08/14/2020}%
+	%\alert{College Name, Date, Year}
+}
+
+
+% The main document
+
+\begin{document}
+
+\begin{frame}
+  \titlepage
+\end{frame}
+
+\large
+
+%%%%%%%%%%%%%%%%%%%%%%% INTRO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+
+\begin{frame}{MSTD Sets}
+\begin{definition}
+	Given a finite subset $S$ of a group $G$, written additively, we define its \textbf{sum set}
+	\[
+	S + S := \{s_1 + s_2: s_1, s_2 \in S\},
+	\]
+	\pause
+	and \textbf{difference set}
+	\[
+	S - S := \{s_1 - s_2: s_1, s_2 \in S\}.
+	\]
+\end{definition}
+\end{frame}
+
+\begin{frame}{MSTD Sets}
+\begin{definition}
+	A finite set $S$ is called \textbf{MSTD} (``more sums than differences'') if
+	\[
+	|S+S| > |S-S|,
+	\]
+	\pause
+	\textbf{MDTS} (``more differences than sums'') if
+	\[
+	|S+S| < |S-S|,
+	\]
+	\pause
+	and \textbf{balanced} if
+	\[
+	|S+S| = |S-S|.
+	\]
+\end{definition}
+\end{frame}
+
+\begin{frame}{Major Results in $\Z$}
+\begin{theorem}[Martin, O'Bryant]
+	Let $P = \{0, 1, \dots, n\}$. For $n \ge 14$, there exists $0 < c < 1$ such that at least $c\cdot 2^{n+1}$ of the subsets of $P$ are MSTD, MDTS, and balanced respectively.
+\end{theorem}
+\pause
+\bigskip
+
+\begin{theorem}[Zhao]
+	The proportions of MSTD, MDTS, and balanced subsets of $P$ all converge to limits as $n \to \infty$.
+\end{theorem}
+\pause
+\bi
+	\item Zhao proved: $\text{MSTD limit} > 4.28 \cdot 10^{-4}$
+		\pause
+	\item Monte Carlo: $\text{MSTD limit} \approx 4.5 \cdot 10^{-4}$
+\ei
+\end{frame}
+
+\begin{frame}{MSTD in Integers vs. Finite Groups}
+\begin{itemize}
+	\item In finding MSTD subsets of $\{0, 1, \dots, n\}\subseteq \Z$, we usually look at ``fringes.''
+		\pause
+		\medskip
+		\begin{center}
+			\begin{tikzpicture}
+				\draw[thick] (0, 0) -- (4.4, 0);
+				\draw[thick, red] (4.4, 0) -- (4.6, 0) -- (4.8, 0.5) -- (5.2, -0.5) -- (5.4, 0) -- (5.6, 0);
+				\draw[thick] (5.6, 0) -- (10, 0);
+				\foreach \x in {0, 1, 3, 4, 5, 9} {
+					\fill[blue] (\x / 5, 0) circle (0.1);
+					\fill[blue] (9.8 - \x / 5, 0) circle (0.1);
+				}
+				\fill[blue] (10, 0) circle (0.1);
+				\foreach \x in {0, ..., 5} {
+					\fill[red] (3.4 + \x / 5, 0) circle (0.1);
+					\fill[red] (6.6 - \x / 5, 0) circle (0.1);
+				}
+				\node[below] at (0, 0) {\small$0$};
+				\node[below] at (1.8, 0) {\small$9$};
+				\node[below] at (3.4, 0) {\small$33$};
+				\node[below] at (6.6, 0) {\small$56$};
+				\node[below] at (8, 0) {\small$79$};
+				\node[below] at (10, 0) {\small$89$};
+			\end{tikzpicture}
+		\end{center}
+		\pause
+		\bigskip
+	\item However, we do not have that ``fringe'' structure in finite groups. That is because unlike in $\Z$, finite groups do not have an ordering that respects addition.
+		\pause
+		\bigskip
+	\item For example, in $\znz$, the sumset ``wraps around'' and overlaps itself, destroying the fringe structure.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{MSTD in Finite Abelian Groups}
+\begin{theorem}[Zhao]
+\bi 
+	\item The number of MSTD subsets of $\znz$ is
+		\[
+		\sim \begin{cases}
+			3^{n/2} & \text{odd $n$}\\
+			\frac{n\phi^{n}}{2} & \text{even $n$}
+		\end{cases}
+		\]
+		\pause
+	\item The number of MSTD subsets of $\znz \times \Z/2\Z$ is
+		\[
+		\sim \begin{cases}
+			3^{n+1} & \text{odd $n$}\\
+			3^n & \text{even $n$}
+		\end{cases}
+		\]
+\ei
+\end{theorem}
+\end{frame}
+
+\begin{frame}{MSTD in Finite Groups}
+\begin{theorem}[Miller-Vissuet 2014]
+	Let $\{G_n\}$ be a family of finite groups, not necessarily abelian, such that $|G_n| \to \infty$. If $S_n$ is a uniformly chosen random subset of $G_n$, then $\pr(S_n + S_n = S_n - S_n = G_n) \to 1$ as $n \to \infty$.
+\end{theorem}
+\pause
+
+\emph{Proof idea.} 
+\begin{itemize}
+	\item Given $g \in G_n$, form a partition of the group with chains $X = \{x_1, \ldots, x_\ell\}$ such that
+		\[
+		x_1 + x_2 = x_2 + x_3 = \cdots = x_\ell + x_1 = g
+		\]
+		\pause
+		\vspace{-\baselineskip}
+	\item Show $\pr(g \notin S_n + S_n)$ and $\pr(g \notin S_n - S_n)$ are each
+		\[
+		\frac{\prod_X L(|X|)}{2^{|G_n|}} \leq \frac{\prod_X 1.8^{|X|}}{2^{|G_n|}} \to 0 \text{ as } n \to \infty
+		\]
+\end{itemize}
+\end{frame}
+
+\section{The Dihedral Group}
+
+\begin{frame}{MSTD in $D_{2n}$}
+\bi
+	\item Miller and Vissuet looked the Dihedral group $D_{2n}$
+		\pause
+		\bigskip
+	\item Started by proving probabilistic results in $\znz$
+\ei
+\pause
+\medskip
+
+\begin{theorem}[Miller-Vissuet]
+	Let $S_1$ and $S_2$ be uniformly chosen random subsets of $\znz$. Then
+	\vspace{-\baselineskip}
+	\begin{align*}
+		\pr(k \notin S_1 + S_1) &= O((3/4)^{n / 2})\\
+		\pr(k \notin S_1 - S_1) &= O((\phi/2)^n)\\
+		\pause
+		\pr(k \notin S_1 + S_2) &= (3/4)^n\\
+		\pr(k \notin S_1 - S_2) &= (3/4)^n.
+	\end{align*}
+\end{theorem}
+%%% NOTE: This gives another proof that P(S + S = S - S = Z / nZ) -> 1 as n -> oo
+\end{frame}
+
+\begin{frame}{From $\znz$ to $D_{2n}$}
+\bi
+	\item To apply these results in $D_{2n}$, decompose $S$ into rotations and reflections: $S = R \cup F$
+		\pause
+		\smallskip
+		\begin{center}
+			\begin{tabular}{|c|c|c|}\hline
+				\textbf{Set} & \textbf{Rotations in Set} & \textbf{Reflections in Set}\\\hline
+				$S$	 & $R$			  & $F$\\\hline
+				$S + S$ & $R + R$, $F + F$ & $R + F$, $-R + F$\\\hline
+				$S - S$ & $R - R$, $F + F$ & $R + F$\\\hline
+			\end{tabular}
+		\end{center}
+		\pause
+		\smallskip
+	\item $S + S$ has contributions from $R + R$ and $-R + F$
+		\pause
+		\smallskip
+	\item $S - S$ has contributions from $R - R$
+\ei
+\pause
+\begin{alertblock}{Conjecture}
+	There are more MSTD than MDTS subsets of $D_{2n}$.
+\end{alertblock}
+\end{frame}
+
+\begin{frame}{Exact Probabilities in $\znz$}
+We can improve one of Miller and Vissuet's results:
+
+\pause
+\medskip
+
+\begin{theorem}[SMALL 2020]
+	Let $S \subseteq \znz$. Then,
+	\[
+	\pr(k \notin S + S) = (3/4)^{n / 2} \left( \frac{\sqrt{3} + 2}{6} \right).
+	\]
+\end{theorem}
+
+\pause
+\bigskip
+
+\begin{proof}
+	Find exact probabilities for given parity of $k$ and $n$, then average.
+\end{proof}
+\end{frame}
+
+\begin{frame}{Expected Size of $|R + R|$ and $|-R + F|$}
+\bi
+	\item For $S = R \cup F \subseteq D_{2n}$,
+		\begin{align*}
+			\E(|R + R|) &= n \left( 1 - (3/4)^{n / 2} \frac{\sqrt{3} + 2}{6} \right)\\ \pause
+			\E(|-R + F|) &= n(1 - (3/4)^{n / 2})
+		\end{align*}
+		\pause
+		\bigskip
+	\item Thus,
+		\[
+		\E(|R + R| + |-R + F|) = n \left( 2 - (3/4)^{n / 2}\frac{\sqrt{3} + 8}{6} \right)
+		\]
+\ei
+\end{frame}
+
+\begin{frame}{Comparing to $|R - R|$}
+\bi
+	\item $R - R$ is all rotations, so $|R - R| \leq n$. So,
+		\[
+		\E(|R - R|) \leq n.
+		\]
+		\pause
+	\item Comparing $|R - R|$ and $|R + R| + |-R + F|$,
+		\begin{align*}
+			\E(|R + R| + |-R + F|) &\geq \E(|R - R|)\pause
+			\intertext{\centering\Large$\Updownarrow$}
+			n \left( 2 - (3/4)^{n / 2}\frac{\sqrt{3} + 8}{6} \right) &\geq n.
+		\end{align*}
+		\pause
+	\item This holds for $n > 3$.
+\ei
+\end{frame}
+
+\begin{frame}{Back to Sum and Difference Sets}
+\bi
+	\item How can we use these results to show there are more MSTD than MDTS sets?
+		\pause
+		\bigskip
+	\item $|R + R| + |-R + F| > |R - R|$ doesn't mean $|S + S| > |S - S|$
+		\pause
+		\bigskip
+	\item For example, if $|S| > n$, then $S + S = S - S = D_{2n}$, but above still holds
+		\pause
+		\bigskip
+	\item Have to consider overlap with $F + F$ and $R + F$ to get actual expected size of $|S + S| - |S - S|$
+\ei
+\end{frame}
+
+\section{Cayley Tables for $D_{2n}$}
+
+\begin{frame}{Cayley Tables}
+A \textbf{Cayley Table} describes the structure of a finite group by showing all combinations of two group elements with the group operation.
+
+\smallskip
+
+Cayley Table for $D_{6}$:
+\begin{center}
+	\begin{tabular}{c !{\vrule} c !{\vrule} c c c !{\color{green}\vrule} c c c}
+		\multicolumn{2}{c!{\vrule}}{\multirow{2}{*}{$+$}} & \multicolumn{3}{c!{\color{green}\vrule}}{rot.} & \multicolumn{3}{c}{ref.}\\\cline{3-8}
+		\multicolumn{2}{c!{\vrule}}{} & $1$ & $r$ & $r^2$ & $s$ & $rs$ & $r^2s$\\\cline{1-8}
+		\parbox[t]{2mm}{\multirow{3}{*}{\rotatebox[origin=c]{90}{rot.}}} & $1$ & $1$ & $r$ & $r^2$ & $s$ & $rs$ & $r^2s$ \\
+		& $r$ & $r$ & $r^2$ & $1$ & \alert{$rs$} & \alert{$r^2s$} & \alert{$s$} \\
+		& $r^2$ & $r^2$ & $1$ & $r$ & \alert{$r^2s$} & \alert{$s$} & \alert{$rs$} \\\arrayrulecolor{green}\cline{1-8}
+		\parbox[t]{2mm}{\multirow{3}{*}{\rotatebox[origin=c]{90}{ref.}}} & $s$ & $s$ & \alert{$r^2s$} & \alert{$rs$} & $1$ & \alert{$r^2$} & \alert{$r$} \\
+		& $rs$ & $rs$ & \alert{$s$} & \alert{$r^2s$} & \alert{$r$} & $1$ & \alert{$r^2$} \\
+		& $r^2s$ & $r^2s$ & \alert{$rs$} & \alert{$s$} & \alert{$r^2$} & \alert{$r$} & $1$\\
+	\end{tabular}
+\end{center}
+
+\end{frame}
+
+\begin{frame}{Inverse Column Cayley Tables}
+An \textbf{Inverse Column Cayley Table} describes the structure of a finite group by showing all combinations of two group elements with the inverse of the group operation.
+
+\smallskip
+
+Inverse Column Cayley Table for $D_{6}$:
+\begin{center}
+	\begin{tabular}{c !{\vrule} c !{\color{black}\vrule} c c c !{\color{green}\vrule} c c c}
+		\multicolumn{2}{c!{\vrule}}{\multirow{2}{*}{$-$}} & \multicolumn{3}{c!{\color{green}\vrule}}{rot.} & \multicolumn{3}{c}{ref.}\\\cline{3-8}
+		\multicolumn{2}{c!{\vrule}}{} & $1$ & $r$ & $r^2$ & $s$ & $rs$ & $r^2s$\\\cline{1-8}
+		\parbox[t]{2mm}{\multirow{3}{*}{\rotatebox[origin=c]{90}{rot.}}} & $1$ & $1$ & \alert{$r^2$} & \alert{$r$} & $s$ & $rs$ & $r^2s$ \\
+		& $r$ & \alert{$r$} & $1$ & \alert{$r^2$} & $rs$ & $r^2s$ & $s$ \\
+		& $r^2$ & \alert{$r^2$} & \alert{$r$} & $1$ & $r^2s$ & $s$ & $rs$ \\
+		\arrayrulecolor{green}\hline
+		\parbox[t]{2mm}{\multirow{3}{*}{\rotatebox[origin=c]{90}{ref.}}} & $s$ & $s$ & $rs$ & $r^2s$ & $1$ & \alert{$r^2$} & \alert{$r$} \\
+		& $rs$ & $rs$ & $r^2s$ & $s$ & \alert{$r$} & $1$ & \alert{$r^2$} \\
+		& $r^2s$ & $r^2s$ & $s$ & $rs$ & \alert{$r^2$} & \alert{$r$} & $1$\\
+	\end{tabular}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Number of Asymmetric Elements}
+\bi
+	\item We used $+$ and $-$ tables to find formulas for the number of \alert{asymmetric} elements.
+		\smallskip
+		\pause
+	\item The tables have small differences for $n$ odd or even.
+		\smallskip
+		\pause
+	\item For the $+$ table, the number of asymmetric elements is
+		\[
+		2n\left(2\left\lfloor\frac{n+1}{2}\right\rfloor + n -\left\lfloor\frac{n}{2}\right\rfloor - 3\right)
+		\]
+		\pause
+		\vspace{-\baselineskip}
+	\item For the $-$ table, the number of asymmetric elements is
+		\[
+		4n(n-\left\lfloor\frac{n}{2}\right\rfloor -1)
+		\]
+		\pause
+	%\item Comparing the number of asymmetric elements, 
+\ei
+\vspace{-\baselineskip}
+\begin{lemma}[SMALL 2020]
+	There are more asymmetric elements in the $+$ table than the $-$ table for $D_{2n}$ for $n\geq 3$.
+\end{lemma}
+\end{frame}
+
+\begin{frame}{Probability of a Subset Being MSTD or MDTS}
+\bi
+	\item We want to find the probability of a subset $A$ of $D_{2n}$ being MSTD or MDTS.
+		\medskip
+		\pause
+	\item We can do this by conditioning on the size of $A$.
+		\medskip
+		\pause
+	\item We notice that if $|A|=1$, then $|A+A|=|A-A|=1$, so it is balanced.
+		\medskip
+		\pause
+	\item We also have the following lemma 
+\ei
+\medskip
+\begin{lemma}[SMALL 2020]
+	If $|A| > n$, then $|A+A|=|A-A|=|D_{2n}|$.
+\end{lemma}
+\end{frame}
+
+\begin{frame}{Probability When $|A| = 2$}
+\bi
+	\item When $|A| = 2$, there are three possibilities for the distribution of $|R|$ and $|F|$: $|R|=2$ and $|F|=0$, $|R|=1$ and $|F|=1$, and $|R|=0$ and $|F|=2$.
+		\medskip
+		\pause
+	\item By conditioning on these three, using the Law of Total Probability, we get the following expression:
+\ei
+\pause
+\begin{align*}
+	&\pr(|A+A|>|A-A|:|A|=2)\\
+	\pause
+	&= \pr(|A+A|>|A-A|:|A|=2 \cap |R|=2)\pr(|R|=2:|A|=2)\\
+	\pause
+	&+ \pr(|A+A|>|A-A|:|A|=2 \cap |R|=1)\pr(|R|=1:|A|=2)\\
+	\pause
+	&+ \pr(|A+A|>|A-A|:|A|=2 \cap |R|=0)\pr(|R|=0:|A|=2)
+\end{align*}
+\pause
+\vspace{-0.5\baselineskip}
+\begin{lemma}[SMALL 2020]
+	$\pr(|A+A| > |A-A| : |A| = 2) > \pr(|A+A| < |A-A| : |A| = 2)$
+\end{lemma}
+\end{frame}
+
+\begin{frame}{Breaking Down Sets Based on Size}
+What can we say about sets of sizes between $3$ and $n$?
+
+\medskip
+\pause
+\begin{lemma}[SMALL 2020]
+	For odd $n$, $\pr(|A+A| < |A-A|: |A| = n) = 0$.
+\end{lemma}
+
+\medskip
+
+So for odd $n$, there are no MDTS subsets of size $n$ of $D_{2n}$. 
+\end{frame}
+
+\begin{frame}{Injective Mappings}
+\bi
+	\item Now that we know that for when $|A|=2$, there are strictly more MSTD sets than MDTS sets, one possible proof method is to show that for each other value of $|A|$, there are just at least as many MSTD sets as MDTS sets
+		\medskip
+		\pause
+	\item One way to show this would be to consturct an injection from the MDTS sets to MSTD sets given $|A|$
+		\medskip
+		\pause
+	\item This would complete the proof of the main conjecture
+\ei
+\end{frame}
+
+\section{Conclusion}
+
+
+\begin{frame}{Future Work}
+Our goal is to prove that there are more MSTD than MDTS sets in $D_{2n}$. 
+\pause
+\bi
+	\item Explore interaction between $R + R$, $R - R$, and $F + F$ in subsets of $D_{2n}$
+		\bigskip
+		\pause
+	\item Extend Cayley Tables approach for $3 \le |A| \le n$.
+		\bigskip
+		\pause
+	\item Construct an injective mapping from MDTS sets to MSTD sets (given a set size $|A|$).
+\ei
+\end{frame}
+
+
+\begin{frame}{Bibliography}
+\begin{thebibliography}{}
+	\bibitem[MO]{MO}
+		G. Martin and K. O'Bryant, \emph{Many sets have more sums than differences}, Additive Combinatorics, CRM Proc. Lecture Notes, vol. 43, Amer. Math. Soc., Providence, RI, (2007), 287--305.
+
+	
+	%Vissuet (Finite Abelian Groups)
+	\bibitem[MV]{MV}
+	S. J. Miller and K. Vissuet, \emph{Most Subsets are Balanced in Finite Groups}, Combinatorial and Additive Number Theory:  CANT 2011 and 2012 (Springer Proceedings in Mathematics \& Statistics, M. Nathanson editor (2014), 147--157).
+	
+	
+	% Nathanson (With Abelian Groups)
+	\bibitem[Na]{Na}
+		M. B. Nathanson, \emph{Sets with more sums than differences}, Integers : Electronic Journal of Combinatorial Number Theory \textbf{7} (2007), Paper A5 (24pp).
+	
+	% Zhao (With Monte Carlo Results)
+	\bibitem[Zh]{Zh}
+		Y. Zhao, \emph{Sets Characterized by Missing Sums and Differences}, Journal of Number Theory \textbf{131} (2011), 2107--2134.
+	
+\end{thebibliography}
+\end{frame}
+
+\begin{frame}{Acknowledgements}
+	\begin{itemize}
+		\item Thank you! Any questions?
+	
+		\item This research was conducted as part of the 2020 SMALL REU program at Williams College. This work was supported by NSF Grants DMS1947438 and DMS1561945, Williams College, Yale University, and the University of Rochester.
+	\end{itemize}
+\end{frame}
+
+
+\end{document}

@@ -1,0 +1,151 @@
+\documentclass[handout]{beamer}
+
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\usetheme{Darmstadt}
+
+\setlength{\leftmargini}{1.5em}
+
+\usepackage{amsmath, amssymb}
+
+\theoremstyle{example}
+\newtheorem{motivexa}{Motivating Example}
+
+\title[Recurrences and Completeness]{Math in Base-Fibonacci: Recurrences and Complete Sequences}
+\author[J. Haviland]{
+	John Haviland, joint with
+	E. Bo\l dyriew,
+	P. L\^am,\\
+	J. Lentfer,
+	S. J. Miller,
+	\& F. Trejos Su\'arez
+}
+\institute[2021]{SMALL REU 2020, Williams College}
+\date{
+	Astronaut Scholar Technical Conference\\
+	August 13 -- 14, 2021
+}
+
+\begin{document}
+
+\section{Introduction}
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}{Outline}
+	\tableofcontents
+\end{frame}
+
+\section{Motivation \& Definitions}
+\begin{frame}{Complete Sequences}
+	\begin{definition}
+		A sequence $(a_n)$ is \emph{complete} if every positive integer can be written as a sum of its terms.
+	\end{definition}
+	
+	\pause
+	\begin{itemize}\setlength{\itemsep}{1.5ex}
+		\item $a_n = 2^n$, $n \geq 0$ is complete using binary expansions.
+		\item $a_n = 3^n$ is not complete since $2$ is not a sum of powers of $3$.
+	\end{itemize}
+	
+	\pause
+	\begin{motivexa}
+		\emph{Zeckendorf's theorem} implies that the Fibonacci numbers $F_1 = 1$, $F_2 = 2$, $F_n = F_{n - 1} + F_{n - 2}$ are complete.
+	\end{motivexa}
+	
+	\pause
+	\begin{itemize}\setlength{\itemsep}{1.5ex}
+		\item We can use complete sequences to express integers, like base-$2$.
+		\item Zeckendorf's theorem lets us write in ``base-Fibonacci.''
+	\end{itemize}
+\end{frame}
+
+\begin{frame}{Other Recurrences}
+	\begin{definition}
+		A \emph{positive linear recurrence sequence} (PLRS) is a sequence $(a_n)$ satisfying a recurrence
+		\[
+		a_n = c_1 a_{n - 1} + c_2 a_{n - 2} + \cdots + c_L a_{n - L}
+		\]
+		in which $c_i \geq 0$ and $c_1, c_L > 0$\pause, with initial conditions $a_1 = 1$ and
+		\[
+		a_n = c_1 a_{n - 1} + c_2 a_{n - 2} + \cdots c_{n - 1} a_1 + 1
+		\]
+		for $n < L$.
+	\end{definition}
+	
+	\pause
+	\begin{itemize}\setlength{\itemsep}{1.5ex}
+		\item A PLRS is uniquely determined by its coefficients, and so is denoted $[c_1, \ldots, c_L]$.
+		\item PLRS naturally generalize the Fibonacci numbers.
+	\end{itemize}
+\end{frame}
+
+\section{Results}
+\begin{frame}{Summary of Results}
+	\begin{itemize}\setlength{\itemsep}{3ex}
+		\item Complete characterization for strictly positive recurrence coefficients $c_i > 0$.
+		
+		\item Complete characterization for $[1, \ldots, 1, 0, \ldots, 0, N]$.
+		
+		\pause
+		\item Coefficient modifications that preserve in/completeness.
+			\begin{itemize}\setlength{\itemsep}{1.5ex}
+				\item $[c_1, \ldots, c_L] \text{ complete} \implies [c_1, \ldots, c_L -k] \text{ complete.}$
+				\item $[c_1, \ldots, c_L] \text{ incomplete} \implies [c_1, \ldots, c_L, c_{L + 1}] \text{ incomplete.}$
+			\end{itemize}
+		
+		\pause
+		\item Analytic criteria: bounding roots of associated polynomials.
+		
+		\item Outside bounds, behavior of roots is chaotic.
+	\end{itemize}
+\end{frame}
+
+\section{Future Research}
+\begin{frame}{Possibilities for Future Work}
+	\begin{itemize}\setlength{\itemsep}{3ex}
+		\item Characterize more families of sequences.
+		
+		\pause
+		\item Finish proof of finite-time checking algorithm.
+		
+		\pause
+		\item Prove conjectured analytic bounds are correct.
+		
+		\pause
+		\item Are other relationships among coefficients useful?
+			\begin{itemize}
+				\item E.g., sum of coefficients, ratio of consecutive coefficients.
+			\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\section{The End}
+\begin{frame}{References}
+	E. Bo\l dyriew, J. Haviland, P. L\^am, J. Lentfer, S. J. Miller, and F. Trejos Su\'arez. An Introduction to Completeness of Positive Linear Recurrence Sequences, \emph{Fibonacci Quarterly} \textbf{58} (2020), 77--90.
+	
+	\bigskip
+	-\! -\! -. Completeness of Positive Linear Recurrence Sequences, preprint, 2021. Available \url{https://arxiv.org/abs/2010.01655}.
+	
+	\bigskip
+	J. L. Brown. Note on complete sequences of integers, \emph{American Mathematical Monthly} \textbf{68} (1961), 557.
+	
+	\bigskip
+	T. C. Martinez, S. J. Miller, C. Mizgerd, J. Murphy, and C. Sun, Generalizing Zeckendorf’s Theorem to Homogeneous Linear Recurrences II, preprint, 2020. Available \url{https://arxiv.org/abs/2009.07891}.
+\end{frame}
+
+\begin{frame}{Acknowledgements}
+	This research was conducted as part of the 2020 SMALL REU program at Williams College. This work was supported by NSF Grants DMS1947438 and DMS1561945, Williams College, Yale University, and the University of Rochester.
+\end{frame}
+
+\begin{frame}
+	\vfill\centering
+	\begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+		\usebeamerfont{title}Thank You!!
+	\end{beamercolorbox}
+	\vfill
+\end{frame}
+
+
+\end{document}
