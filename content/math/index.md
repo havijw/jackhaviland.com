@@ -9,14 +9,11 @@ I was part of several research projects when I studied math. I was/am primarily 
 
 ## Papers
 - [Completeness of Positive Linear Recurrence Sequences](https://doi.org/10.1007/978-3-031-10796-2_2)  
-  *Springer Proceedings in Mathematics & Statistics, vol 395, 2022.*  
-  <!-- With E. Boldyriew, P. Lam, J. Lentfer, S. J. Miller, and F. Trejos-Suarez. -->
+  *Springer Proceedings in Mathematics & Statistics, vol 395, 2022.*
 - [An Introduction to Completeness of Positive Linear Recurrence Sequences](https://www.fq.math.ca/Papers1/58-5/boldyriew2.pdf)  
-  *Fibonacci Quaterly, vol 58, no 5, 2020.*  
-  <!-- With E. Boldyriew, P. Lam, J. Lentfer, S. J. Miller, and F. Trejos-Suarez. -->
+  *Fibonacci Quaterly, vol 58, no 5, 2020.*
 - [Extending Zeckendorf's Theorem to a Non-Constant Recurrence and the Zeckendorf Game on this Non-Constant Recurrence Relation](https://www.fq.math.ca/Papers1/58-5/boldyriew1.pdf)  
-  *Fibonacci Quaterly, vol 58, no 5, 2020.*  
-  <!-- With E. Boldyriew, A. Cusena, L. Dai, A. Dunkelberg, P. Ding, K. Huffman, D. Ke, D. Kleber, J. Lentfer, T. Luo, S. J. Miller, C. Mizgerd, V. Tiwari, J. Ye, Y. Zhang, X. Zheng, and W. Zhu -->
+  *Fibonacci Quaterly, vol 58, no 5, 2020.*
 
 ## Notes
 - [Constructing the Derived Category](notes/derived-category.pdf)
