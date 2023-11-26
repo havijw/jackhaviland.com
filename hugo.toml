@@ -17,6 +17,10 @@ theme = 'unbloated'
     name = "Posts"
     url = "/posts"
     weight = 3
+  [[menu.main]]
+    name = "Contact"
+    url = "/contact/"
+    weight = 4
 
 [params]
   footer = "&copy; Jack Haviland 2023"
