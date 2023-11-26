@@ -1,4 +1,22 @@
 baseURL = 'https://example.org/'
 languageCode = 'en-us'
-title = 'On My Mind'
+title = 'Jack Haviland'
 theme = 'unbloated'
+
+
+[menu]
+  [[menu.main]]
+    name = "Home"
+    url = ""
+    weight = 1
+  [[menu.main]]
+    name = "Math"
+    url = "/math"
+    weight = 2
+  [[menu.main]]
+    name = "Posts"
+    url = "/posts"
+    weight = 3
+
+[params]
+  footer = "&copy; Jack Haviland 2023"
