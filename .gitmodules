@@ -1,0 +1,3 @@
+[submodule "themes/unbloated"]
+	path = themes/unbloated
+	url = git@github.com:jorgepiloto/unbloated.git
