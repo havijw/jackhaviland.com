@@ -2,7 +2,6 @@
 title: 'The Expanding Universe'
 author: Jack Haviland
 date: 2020-11-13
-draft: true
 ---
 ## Introduction
 
