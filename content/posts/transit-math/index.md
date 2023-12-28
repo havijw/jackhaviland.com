@@ -32,4 +32,4 @@ plt.show()
 
 ## Box Functions
 
-The simplest transit model is a box function, which takes on a constant high value for out-of-transit points and a constant low value for in-transit points.
+The simplest transit model is a box function, which takes on a constant high value for out-of-transit points and a constant low value for in-transit points. According to this model, there are two possible states for the planet: in front of the star, and not in front of the star. The transition from one state to the other is instantaneous, so the light curve jumps from the high value to the low value without a smooth transition.
