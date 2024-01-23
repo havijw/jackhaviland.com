@@ -1,0 +1,38 @@
+---
+title: Problem Set 1
+# subtitle: "8.012 Fall 2008"
+author: Jack Haviland
+format: html
+---
+
+<!-- LaTeX Macros -->
+:::{.hidden}
+$$
+\newcommand{\ihat}{\boldsymbol{\hat{\textbf{i}}}}
+\newcommand{\jhat}{\boldsymbol{\hat{\textbf{j}}}}
+\newcommand{\khat}{\boldsymbol{\hat{\textbf{k}}}}
+$$
+:::
+
+## K&K 1.2
+Given two vectors $\mathbf{A} = (2\ihat - 3\jhat + 7\khat)$, $\mathbf{B} = (5\ihat + \jhat + 2\khat)$, find:
+
+(a) $\mathbf{A} + \mathbf{B} = 7\ihat - 2\jhat + 9\khat$
+(b) $\mathbf{A} - \mathbf{B} = -3\ihat - 4\jhat + 5\khat$
+(c) $\mathbf{A} \cdot \mathbf{B} = 10 - 3 + 14 = 21$
+(d) $\mathbf{A} \times \mathbf{B}$:
+  $$
+      \mathbf{A} \times \mathbf{B}
+        = \begin{vmatrix}
+          \ihat & \jhat & \khat\\ 2 & -3 & 7\\ 5 & 1 & 2
+        \end{vmatrix}
+        = \ihat(-6 - 7) - \jhat(4 - 35) + \khat(2 + 15)
+        = -13\ihat + 31\jhat + 17\khat
+  $$
+
+## K&K 1.7
+Prove the law of sines using the cross product.
+
+Suppose we have a triangle with angle measures $\alpha$, $\beta$, $\gamma$ and respective opposite side lengths $a$, $b$, $c$. Let $\mathbf{A}$ be the vector from the angle with measure $\alpha$ to the angle with measure $\beta$, $\mathbf{B}$ from $\beta$ to $\gamma$, and $\mathbf{C}$ from $\gamma$ to $\alpha$.
+
+![](figures/triangle.svg)

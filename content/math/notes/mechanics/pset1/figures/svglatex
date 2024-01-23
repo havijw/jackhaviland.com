@@ -1,0 +1,13 @@
+#!/bin/bash
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <name>"
+    exit 1
+fi
+
+name="$1"
+gs_prefix=$(brew --prefix ghostscript)
+
+echo latex "$name.tex"
+latex "$name.tex"
+echo dvisvgm "$name.dvi" --libgs="$gs_prefix/lib/libgs.dylib"
+dvisvgm "$name.dvi" --libgs="$gs_prefix/lib/libgs.dylib"
