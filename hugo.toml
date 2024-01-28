@@ -1,6 +1,4 @@
-baseURL = 'https://havijw.github.io/jackhaviland.com/'
-RelativeURLs = true
-CanonifyURLs = true
+baseURL = 'https://jackhaviland.com/'
 languageCode = 'en-us'
 title = 'Jack Haviland'
 theme = 'unbloated'
