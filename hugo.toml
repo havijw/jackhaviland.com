@@ -3,7 +3,6 @@ languageCode = 'en-us'
 title = 'Jack Haviland'
 theme = 'unbloated'
 
-
 [menu]
   [[menu.main]]
     name = "Home"
@@ -24,3 +23,16 @@ theme = 'unbloated'
 
 [params]
   footer = "&copy; Jack Haviland 2023"
+  math = true
+  tikz = false
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.extensions]
+      [markup.goldmark.extensions.passthrough]
+        enable = true
+        [markup.goldmark.extensions.passthrough.delimiters]
+          block = [['\[', '\]'], ['$$', '$$']]
+          inline = [['\(', '\)'], ['$', '$']]
+
+
