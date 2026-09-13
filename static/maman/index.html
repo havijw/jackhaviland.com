@@ -1,15 +1,289 @@
 <!doctype html>
 <html>
   <head>
-    <title>HBD Maman <3</title>
-    <style></style>
+    <title>HBD Maman ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎂</text></svg>"
+    />
+    <link rel="stylesheet" href="https://use.typekit.net/plf3yuo.css" />
+    <style>
+      body {
+        min-height: 100%;
+        margin: 0;
+        font-family:
+          "avenir-next-lt-pro", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 36px 20px;
+        box-sizing: border-box;
+        background: #fdf6f0;
+      }
+      main {
+        max-width: 480px;
+        text-align: center;
+      }
+      .card-wrap {
+        position: relative;
+        perspective: 1200px;
+      }
+      #birthday-card {
+        transition: transform 0.3s ease;
+      }
+      .photo {
+        cursor: pointer;
+      }
+      .flip-hint {
+        position: absolute;
+        top: 50%;
+        right: 16px;
+        margin-top: -18px;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+      }
+      .flip-hint svg {
+        width: 14px;
+        height: 14px;
+        fill: #fff;
+      }
+      .flip-hint[hidden] {
+        display: none;
+      }
+      #birthday-card img {
+        display: block;
+        max-height: 90vh;
+        max-width: 100%;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        transition: transform 0.2s ease;
+      }
+      #birthday-card:hover img {
+        transform: scale(1.02);
+      }
+      .message {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+        padding: 24px 32px;
+      }
+      .message h1 {
+        font-family: "coffee-service", cursive;
+        text-align: center;
+      }
+      .signoff {
+        text-align: center;
+        margin-top: 8px;
+      }
+      .message p {
+        margin: 0 0 14px;
+      }
+      .message[hidden] {
+        display: none;
+      }
+      .carousel {
+        position: relative;
+        margin: 16px 0 4px;
+      }
+      #birthday-card .carousel img {
+        display: block;
+        width: 320px;
+        max-width: 100%;
+        height: 220px;
+        max-height: none;
+        object-fit: cover;
+        border-radius: 8px;
+        box-shadow: none;
+        margin: 0 auto;
+      }
+      .carousel-nav {
+        position: absolute;
+        top: 50%;
+        margin-top: -16px;
+        width: 32px;
+        height: 32px;
+        border: none;
+        border-radius: 50%;
+        background: rgba(0, 0, 0, 0.35);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        cursor: pointer;
+      }
+      .carousel-nav svg {
+        width: 12px;
+        height: 12px;
+        fill: #fff;
+      }
+      .carousel-nav.prev {
+        left: 8px;
+        transform: scaleX(-1);
+      }
+      .carousel-nav.next {
+        right: 8px;
+      }
+      .carousel-counter {
+        text-align: center;
+        font-size: 0.85em;
+        color: #a66;
+      }
+      .back-link {
+        align-self: flex-end;
+        margin-top: 8px;
+        background: none;
+        border: none;
+        padding: 0;
+        font: inherit;
+        color: #a66;
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    </style>
   </head>
   <body>
-    <h1>Happy Birthday Maman</h1>
-    <img
-      src="/maman/partner-stunts.jpeg"
-      alt="Jack, Jane, and Mom triumphantly form a human pyramid"
-      style="max-height: 300px"
-    />
+    <main>
+      <div class="card-wrap">
+        <div id="birthday-card">
+          <div class="photo">
+            <img
+              src="/maman/partner-stunts-hbd.jpeg"
+              alt="Jack, Jane, and Mom triumphantly form a human pyramid"
+            />
+          </div>
+          <div class="message" hidden>
+            <h1>Happy Birthday Maman</h1>
+            <p>Mama,</p>
+            <p>
+              Wow, it's been quite a year! Thinking back through it all —
+              Grandma moving twice, your house renovations and moving to
+              Greenview, and my engagement, and that's just like the really big
+              life changing stuff. I'm so happy to have you on my journey and to
+              be part of yours.
+            </p>
+            <p>
+              As much as I would love to be in Michigan to celebrate with you,
+              I'm very grateful to be able to visit many times a year and to
+              have you out to Boston. It's also very sweet thinking of you in my
+              childhood bedroom — I hope you feel the love in there.
+            </p>
+            <p>
+              Until next time, here's some of my fav photos of us from the last
+              year!
+            </p>
+            <div class="carousel">
+              <img class="carousel-img" alt="A photo of the family" />
+              <button
+                type="button"
+                class="carousel-nav prev"
+                aria-label="Previous photo"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                  <path
+                    d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z"
+                  />
+                </svg>
+              </button>
+              <button
+                type="button"
+                class="carousel-nav next"
+                aria-label="Next photo"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+                  <path
+                    d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z"
+                  />
+                </svg>
+              </button>
+            </div>
+            <p class="carousel-counter"></p>
+            <p class="signoff">Love,<br />Jack ❤️</p>
+            <button type="button" class="back-link">back to front</button>
+          </div>
+        </div>
+        <div class="flip-hint">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640">
+            <path
+              d="M471.1 297.4C483.6 309.9 483.6 330.2 471.1 342.7L279.1 534.7C266.6 547.2 246.3 547.2 233.8 534.7C221.3 522.2 221.3 501.9 233.8 489.4L403.2 320L233.9 150.6C221.4 138.1 221.4 117.8 233.9 105.3C246.4 92.8 266.7 92.8 279.2 105.3L471.2 297.3z"
+            />
+          </svg>
+        </div>
+      </div>
+    </main>
+    <script>
+      const card = document.getElementById("birthday-card");
+      const photo = card.querySelector(".photo");
+      const message = card.querySelector(".message");
+      const backLink = card.querySelector(".back-link");
+      const flipHint = document.querySelector(".flip-hint");
+      let rotation = 0;
+
+      function flip() {
+        rotation += 90;
+        card.style.transform = `rotateY(${rotation}deg)`;
+        card.addEventListener(
+          "transitionend",
+          () => {
+            photo.hidden = !photo.hidden;
+            message.hidden = !message.hidden;
+            rotation += 90;
+            card.style.transform = `rotateY(${rotation}deg)`;
+            // once we've turned a full half-flip (180deg), the visible
+            // face is seen from "behind" and reads mirrored, so
+            // un-mirror whichever side is now showing
+            const facingBackwards = ((rotation % 360) + 360) % 360 === 180;
+            const visible = photo.hidden ? message : photo;
+            visible.style.transform = facingBackwards ? "rotateY(180deg)" : "";
+
+            flipHint.hidden = photo.hidden;
+          },
+          { once: true },
+        );
+      }
+
+      // clicking the photo flips to the message; the "back to front"
+      // link on the message flips back
+      photo.addEventListener("click", flip);
+      backLink.addEventListener("click", flip);
+
+      // photo carousel on the message side, ordered by when each was taken
+      const carouselPhotos = [
+        "/maman/zusammen-duo.jpeg",
+        "/maman/zusammen-trio.jpeg",
+        "/maman/christmas.jpeg",
+        "/maman/lounging.jpeg",
+        "/maman/spencer-wine.jpeg",
+        "/maman/grandma-apt.jpeg",
+        "/maman/whole-family.JPG",
+      ];
+      const carouselImg = message.querySelector(".carousel-img");
+      const carouselCounter = message.querySelector(".carousel-counter");
+      let carouselIndex = 0;
+
+      function showPhoto(i) {
+        carouselIndex = (i + carouselPhotos.length) % carouselPhotos.length;
+        carouselImg.src = carouselPhotos[carouselIndex];
+        carouselCounter.textContent = `${carouselIndex + 1} / ${carouselPhotos.length}`;
+      }
+
+      message
+        .querySelector(".carousel-nav.prev")
+        .addEventListener("click", () => showPhoto(carouselIndex - 1));
+      message
+        .querySelector(".carousel-nav.next")
+        .addEventListener("click", () => showPhoto(carouselIndex + 1));
+
+      showPhoto(0);
+    </script>
   </body>
 </html>
